@@ -1,0 +1,92 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# macOS Monterey cache and logs
+*.swp
+*.swo
+*.tmp
+*.log
+
+# Node/npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build output
+/dist/
+/build/
+
+# VSCode
+.vscode/
+
+# Other editors
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Environment files
+.env
+.env.*
+
+# Misc
+*.orig
+*.bak
+
+# Ignore output from Tailwind JIT
+*.css.d.ts
+
+# Ignore coverage reports
+coverage/
+
+# Ignore local test snapshots
+__snapshots__/
+
+# Ignore by JetBrains IDEs
+.idea/
+
+# Ignore by Xcode
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+*.xcodeproj
+*.xcconfig
+
+# Ignore by RubyMine
+.idea/
+*.iml
+
+# Ignore by code editors
+*.code-workspace
+*.sublime*
+
+# Ignore by Finder
+.fseventsd
+
+# Ignore by Dropbox
+.dropbox*
+
+# Ignore by npm
+.npm
+
+# Ignore by yarn
+.yarn
+.pnp.*
+
+# Ignore by Git
+.git/
