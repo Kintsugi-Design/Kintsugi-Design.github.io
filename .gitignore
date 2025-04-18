@@ -29,7 +29,6 @@ yarn-error.log*
 package-lock.json
 
 # Build output
-/dist/
 /build/
 
 # VSCode
@@ -90,3 +89,6 @@ __snapshots__/
 
 # Ignore by Git
 .git/
+
+# Ignore built site
+./site
