@@ -1,0 +1,10 @@
+# Jekyll configuration file
+# See https://jekyllrb.com/docs/configuration/
+title: Kintsugi Design
+baseurl: ""
+url: ""
+plugins:
+  - jekyll-tailwindcss
+
+tailwindcss:
+  css_path: "./_tailwind.css" # this is the default location

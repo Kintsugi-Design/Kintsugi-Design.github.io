@@ -1,0 +1,6 @@
+/*
+  Place any custom CSS here. Tailwind CSS will be injected by jekyll-tailwindcss.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
