@@ -602,6 +602,9 @@
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
+  .border-white {
+    border-color: var(--color-white);
+  }
   .border-yellow-400 {
     border-color: var(--color-yellow-400);
   }
@@ -833,6 +836,12 @@
   .shadow-sm {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-red-500 {
+    --tw-shadow-color: oklch(63.7% 0.237 25.331);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, var(--color-red-500) var(--tw-shadow-alpha), transparent);
+    }
   }
   .outline {
     outline-style: var(--tw-outline-style);
