@@ -1,339 +1,818 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Kintsugi Design | UI/UX & Web Consultancy</title>
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kintsugi Design is a UI/UX and web development consultancy helping brands create beautiful, effective digital experiences.">
-    <link rel="icon" href="img/logo-white.svg" type="image/svg+xml">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
-    <!-- Branding Colors -->
+    
+    <!-- Primary Meta Tags -->
+    <title>Kintsugi - UI/UX Design & Web Development Consultancy Malaysia</title>
+    <meta name="title" content="Kintsugi - UI/UX Design & Web Development Consultancy Malaysia">
+    <meta name="description" content="Beautiful, functional, and human-centered digital experiences. Expert UI/UX design, web development, and consulting services. Transform your digital presence with Kintsugi.">
+    <meta name="keywords" content="UI/UX design, web development, digital transformation, consultancy, Malaysia, user experience, interface design, web design, digital strategy">
+    <meta name="author" content="Kintsugi Design">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kintsugi.my/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kintsugi.my/">
+    <meta property="og:title" content="Kintsugi - UI/UX Design & Web Development Consultancy">
+    <meta property="og:description" content="Beautiful, functional, and human-centered digital experiences. For human needs, our solutions lead.">
+    <meta property="og:image" content="https://kintsugi.my/img/kintsugi-logo.png">
+    <meta property="og:site_name" content="Kintsugi">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://kintsugi.my/">
+    <meta property="twitter:title" content="Kintsugi - UI/UX Design & Web Development Consultancy">
+    <meta property="twitter:description" content="Beautiful, functional, and human-centered digital experiences. For human needs, our solutions lead.">
+    <meta property="twitter:image" content="https://kintsugi.my/img/kintsugi-logo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/kintsugi-logo.png">
+    <link rel="apple-touch-icon" href="img/kintsugi-logo.png">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Kintsugi",
+      "alternateName": "Kintsugi Design",
+      "url": "https://kintsugi.my",
+      "logo": "https://kintsugi.my/img/kintsugi-logo.png",
+      "description": "UI/UX Design & Web Development Consultancy providing beautiful, functional, and human-centered digital experiences.",
+      "email": "tech@kintsugi.my",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "MY"
+      },
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "tech@kintsugi.my",
+        "contactType": "Customer Service"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "2"
+      }
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --ks-gold: #d4ac36;
-        --ks-blue: #0c338c;
-        --ks-white: #fff;
-      }
-      .bg-ks-gold { background-color: #d4ac36 !important; }
-      .text-ks-gold { color: #d4ac36 !important; }
-      .bg-ks-blue { background-color: #0c338c !important; }
-      .text-ks-blue { color: #0c338c !important; }
-      .bg-ks-gold-white-blue {      
-        background: #D4AC36;
-        background: linear-gradient(90deg, rgba(212, 172, 54, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(12, 51, 140, 1) 100%);
-      }
-      .bg-ks-blue-gold {      
-        background: #0c338c;
-        background: linear-gradient(90deg, rgba(12, 51, 140, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(212, 172, 54, 1) 100%);
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .crack-svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .content {
+            position: relative;
+            z-index: 3;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .logo {
+            font-family: 'Italianno', cursive;
+            font-size: 3rem;
+            font-weight: 400;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #f4e4c1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #d4af37 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 2px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            border-radius: 30px 25px 28px 26px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: #d4af37;
+            color: #0a0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .section {
+            padding: 8rem 5%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .about-question {
+            font-size: 1.5rem;
+            color: #d4af37;
+            font-weight: 600;
+            font-style: italic;
+            margin: 3rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .service-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .case-study-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        .case-study-content {
+            padding: 2.5rem;
+        }
+
+        .case-study-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .case-study-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #0a0a0a;
+            font-weight: 700;
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+        }
+
+        .team-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 120px;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            font-style: italic;
+        }
+
+        footer {
+            padding: 4rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        footer img {
+            height: 40px;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        footer p {
+            color: #888;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .case-studies-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </head>
-  <body class="bg-white text-dark">
-    <main>
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top shadow-sm">
-        <div class="container-xl">
-          <a href="#" class="navbar-brand d-flex align-items-center gap-2">
-            <img src="img/kintsugi-logo.png" class="" style="height:24px;width:24px;" alt="Kintsugi Design Logo">
-            <span class="fw-bold fs-3 text-ks-gold">Kintsugi Design</span>
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbar-default">
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-md-center gap-md-3">
-              <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-              <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
-              <li class="nav-item"><a href="#case-studies" class="nav-link">Case Studies</a></li>
-              <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
-              <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
-              <li class="nav-item"><a href="#team" class="nav-link">Team</a></li>
-              <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-              <li class="nav-item ms-md-3">
-                <a href="mailto:hello@kintsugidesign.co" class="btn bg-ks-gold text-white fw-semibold px-4 py-2 rounded-pill shadow-sm">Email Us</a>
-              </li>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    
+    <svg class="crack-svg" id="crack-svg">
+        <path id="crack-path" fill="none" stroke="url(#gold-gradient)" stroke-width="2" opacity="0.6"/>
+        <defs>
+            <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#f4e4c1;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="content">
+        <nav id="navbar">
+            <div class="logo">
+                <img src="img/kintsugi-logo.png" alt="Kintsugi Logo" style="height: 50px; vertical-align: middle; margin-right: 10px;">
+                Kintsugi
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#case-studies">Work</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- Hero Section -->
-      <section class="pt-7 pb-5 bg-white bg-ks-blue min-vh-75">
-        <div class="container-xl text-center py-5">
-          <h1 class="display-4 fw-bold mt-5 pt-5 mb-4 text-white">For human needs,<br>our solutions lead.</h1>
-          <p class="lead mb-4 text-white">UI/UX Design & Web Development Consultancy<br>Beautiful, functional, and human-centered digital experiences.</p>
-          <a href="#contact" class="btn bg-ks-blue text-white border-white fw-semibold px-5 py-3 rounded-pill shadow-lg shadow-red-500 fs-5">Let's Work Together</a>
-        </div>
-      </section>
-      <!-- About Section -->
-      <section id="about" class="py-5 bg-white rounded-4 shadow-sm">
-        <div class="container-lg text-center">
-          <h2 class="fw-bold mb-4 text-ks-gold">About Us</h2>
-          <p class="fs-5 text-secondary mb-0">With a global presence and a shared passion, we possess a unique perspective that uncovers inherent beauty where others may not. Driven by our love for aesthetics and engagement, we are always curious to explore how visually stunning experiences enhance a user’s interaction with their surroundings.</p>
-          <p class="fs-5 text-secondary mb-0">We constantly strive to answer a crucial question:<br><span class="font-semibold text-ks-blue">How can we improve the user's experience with a product?</span></p>
-        </div>
-      </section>
-      <!-- Services Section -->
-      <section id="services" class="py-5 bg-light rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-blue">Our Services</h2>
-          <p class="fs-5 text-secondary mb-0">From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence. Our team crafts beautiful, intuitive interfaces, builds robust web solutions, and provides expert consulting to help your business thrive online.</p>
-        </div>
-        <div class="container-xl">
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <i class="bi bi-palette2 h1 text-ks-gold"></i>
-                <h5 class="fw-bold text-ks-gold my-3">UI/UX Design</h5>
-                <p class="text-secondary">Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
-              </div>
+        </nav>
+
+        <section class="hero">
+            <h1>For human needs,<br>our solutions lead.</h1>
+            <p class="subtitle">UI/UX Design & Web Development Consultancy</p>
+            <p class="description">Beautiful, functional, and human-centered digital experiences.</p>
+            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Let's Work Together</button>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p>With a global presence and a shared passion, we possess a unique perspective that uncovers inherent beauty where others may not. Driven by our love for aesthetics and engagement, we are always curious to explore how visually stunning experiences enhance a user's interaction with their surroundings.</p>
+                <p class="about-question">We constantly strive to answer a crucial question:<br>How can we improve the user's experience with a product?</p>
             </div>
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <i class="bi bi-megaphone h1 text-ks-gold"></i>
-                <h5 class="fw-bold text-ks-gold my-3">Web Development</h5>
-                <p class="text-secondary">Robust, scalable, and modern web solutions tailored to your business needs and goals.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <i class="bi bi-globe-asia-australia h1 text-ks-gold"></i>
-                <h5 class="fw-bold text-ks-gold my-3">Consulting & Support</h5>
-                <p class="text-secondary">Expert advice, digital strategy, and ongoing support to ensure your digital operations run smoothly.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Case Studies Section -->
-      <section id="case-studies" class="py-5 bg-white rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-blue">Case Studies</h2>
-          <p class="fs-5 text-secondary mb-0">Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges, delivering measurable results, and creating exceptional user experiences for our clients.</p>
-        </div>
-        <div class="container-xl">
-          <div class="row g-4">
-            <div class="col-md-6">
-              <div class="bg-white rounded-4 shadow p-4 h-100 border d-flex flex-column">
-                <h5 class="fw-bold text-ks-gold mb-2">Day Food Catalogue</h5>
-                <p class="text-secondary">End-to-end development of dayfood.mv, a comprehensive FMCG and fresh food ordering platform. Built with modern web technologies to provide a seamless experience for Day Food's customers, featuring up-to-date product catalogues with search and filtering, direct to Viber ordering, and a user-friendly interface.</p>
-                <div class="mt-auto pt-3">
-                  <div class="d-flex gap-2 flex-wrap">
-                    <a href="#" class="btn btn-outline-ks-gold btn-sm">Read Case Study</a>
-                    <a href="https://dayfood.mv" target="_blank" class="btn btn-ks-gold btn-sm">Visit dayfood.mv</a>
-                  </div>
+        </section>
+
+        <section id="services" class="section">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence. Our team crafts beautiful, intuitive interfaces, builds robust web solutions, and provides expert consulting to help your business thrive online.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="url(#gold1)" stroke-width="2"/>
+                        <path d="M16 56H48" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 48V56" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="32" cy="28" r="8" stroke="url(#gold1)" stroke-width="2"/>
+                        <path d="M20 20L24 24M44 20L40 24" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#f4e4c1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h3>UI/UX Design</h3>
+                    <p>Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
                 </div>
-                <div class="text-muted small mt-2">Full Stack Development, UI/UX Design, Mobile Responsive & PWA Ready</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="bg-white rounded-4 shadow p-4 h-100 border">
-                <h5 class="fw-bold text-ks-gold mb-2">Majesty Education</h5>
-                <p class="text-secondary">Digitization of student registration and management system for Majesty Education, a leading tertiary education service provider in Malaysia. Transformed manual registration process into a digital platform, as well as implemented a modern, responsive website with comprehensive education information and features.</p>
-                <div class="mt-auto pt-3">
-                  <div class="d-flex gap-2 flex-wrap">
-                    <a href="#" class="btn btn-outline-ks-gold btn-sm">Read Case Study</a>
-                    <a href="https://majestyedu.com" target="_blank" class="btn btn-ks-gold btn-sm">Visit Majesty Education</a>
-                  </div>
+
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="url(#gold2)" stroke-width="2"/>
+                        <path d="M20 24L28 32L20 40" stroke="url(#gold2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 40H44" stroke="url(#gold2)" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#f4e4c1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h3>Web Development</h3>
+                    <p>Robust, scalable, and modern web solutions tailored to your business needs and goals.</p>
                 </div>
-                <div class="text-muted small mt-2">Agile Project Management, Full Stack Development, UI/UX Design, Mobile Responsive</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Testimonials Section -->
-      <section id="testimonials" class="py-5 bg-light rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-blue">Testimonials</h2>
-          <p class="fs-5 text-secondary mb-0">Hear what our clients say about working with Kintsugi Design. We take pride in building lasting partnerships and delivering results that exceed expectations.</p>
-        </div>
-        <div class="container-xl">
-          <div class="row g-4">
-            <div class="col-md-6">
-              <div class="bg-white rounded-4 shadow p-4 h-100 border">
-                <p class="text-secondary">“Kintsugi Design transformed our product’s user experience. Their attention to detail and creativity are unmatched. Our users love the new interface!”</p>
-                <div class="d-flex align-items-center gap-3 mt-3">
-                <i class="bi bi-person-circle h1 text-ks-blue"></i>
-                  <div class="text-left">
-                    <div class="font-semibold text-ks-blue">Stan Lee</div>
-                    <div class="text-sm text-gray-500">Director, Big Corporate</div>
-                  </div>
+
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="24" stroke="url(#gold3)" stroke-width="2"/>
+                        <path d="M32 8V32L44 44" stroke="url(#gold3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="32" cy="32" r="3" fill="url(#gold3)"/>
+                        <defs>
+                            <linearGradient id="gold3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#f4e4c1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h3>Consulting & Support</h3>
+                    <p>Expert advice, digital strategy, and ongoing support to ensure your digital operations run smoothly.</p>
                 </div>
-              </div>
             </div>
-            <div class="col-md-6">
-              <div class="bg-white rounded-4 shadow p-4 h-100 border">
-                <p class="text-secondary">“The Kintsugi team delivered our project on time and above expectations. Their expertise in both design and development made a huge difference.”</p>
-                <div class="d-flex align-items-center gap-3 mt-3">
-                  <i class="bi bi-person-circle h1 text-ks-gold"></i>
-                  <div class="text-left">
-                    <div class="font-semibold text-ks-gold">Syed Fahmi</div>
-                    <div class="text-sm text-gray-500">Social Influencer & CEO, Small Startup</div>
-                  </div>
+        </section>
+
+        <section id="case-studies" class="section">
+            <h2 class="section-title">Case Studies</h2>
+            <p class="section-subtitle">Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges, delivering measurable results, and creating exceptional user experiences for our clients.</p>
+            
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-content">
+                        <h3>Day Food Catalogue</h3>
+                        <p>End-to-end development of dayfood.mv, a comprehensive FMCG and fresh food ordering platform. Built with modern web technologies to provide a seamless experience for Day Food's customers, featuring up-to-date product catalogues with search and filtering, direct to Viber ordering, and a user-friendly interface.</p>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- FAQ Section -->
-      <section id="faq" class="py-5 bg-white rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-blue">Frequently Asked Questions</h2>
-          <p class="fs-5 text-secondary mb-0">Find answers to some of the most common questions about our services, process, and working with Kintsugi Design.</p>
-        </div>
-        <div class="container-xl">
-          <div class="accordion" id="faqAccordion">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="faq1">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1Content" aria-expanded="false" aria-controls="faq1Content">
-                  What industries do you specialize in?
-                </button>
-              </h2>
-              <div id="faq1Content" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  We’ve worked with clients in fintech, e-commerce, healthcare, education, and more. Our adaptable process means we can deliver results for any industry.
+
+                <div class="case-study-card">
+                    <div class="case-study-content">
+                        <h3>Majesty Education</h3>
+                        <p>Digitization of student registration and management system for Majesty Education, a leading tertiary education service provider in Malaysia. Transformed manual registration process into a digital platform, as well as implemented a modern, responsive website with comprehensive education information and features.</p>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="faq2">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2Content" aria-expanded="false" aria-controls="faq2Content">
-                  How do you approach a new project?
-                </button>
-              </h2>
-              <div id="faq2Content" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  We start with a discovery phase to understand your goals, users, and challenges. Then we move into design, development, and iteration—always keeping you involved and informed.
+        </section>
+
+        <section id="testimonials" class="section">
+            <h2 class="section-title">Testimonials</h2>
+            <p class="section-subtitle">Hear what our clients say about working with Kintsugi Design. We take pride in building lasting partnerships and delivering results that exceed expectations.</p>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Kintsugi Design transformed our product's user experience. Their attention to detail and creativity are unmatched. Our users love the new interface!</p>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="faq3">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3Content" aria-expanded="false" aria-controls="faq3Content">
-                  What is your typical project timeline?
-                </button>
-              </h2>
-              <div id="faq3Content" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  Timelines vary by scope, but most projects take between 3 and 12 months. We provide clear milestones and regular updates throughout.
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The Kintsugi team delivered our project on time and above expectations. Their expertise in both design and development made a huge difference.</p>
                 </div>
-              </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="faq4">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4Content" aria-expanded="false" aria-controls="faq4Content">
-                  Do you offer ongoing support?
-                </button>
-              </h2>
-              <div id="faq4Content" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  Yes! We offer maintenance, updates, and strategic consulting to ensure your digital products continue to deliver value.
+        </section>
+
+        <section id="team" class="section">
+            <h2 class="section-title">Meet the Team</h2>
+            <p class="section-subtitle">Our diverse team brings together expertise in design, development, and strategy. We're passionate about creating digital experiences that make a difference.</p>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">E</div>
+                    <h3>Elms</h3>
+                    <p>A creative visionary who brings concepts to life with artistry and imagination. Elms crafts visual stories that inspire and engage.</p>
                 </div>
-              </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">M</div>
+                    <h3>Muf</h3>
+                    <p>The mastermind behind our approach, Muf aligns design and business goals to ensure every project achieves maximum impact.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">T</div>
+                    <h3>Tom</h3>
+                    <p>Tom leverages cutting-edge technology to turn ideas into robust, scalable solutions. He ensures our work is always future-ready.</p>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <!-- Team Section -->
-      <section id="team" class="py-5 bg-light rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-blue">Meet the Team</h2>
-          <p class="fs-5 text-secondary mb-0">Our diverse team brings together expertise in design, development, and strategy. We’re passionate about creating digital experiences that make a difference.</p>
-        </div>
-        <div class="container-xl">
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <img src="img/elms.png" alt="Elms" class="img-fluid w-25 h-auto rounded-circle object-cover mb-4 border-4 border-ks-gold shadow" />
-                <div class="font-semibold text-xl text-ks-blue mb-1">Elms</div>
-                <div class="text-gray-500 mb-2">The Artist</div>
-                <p class="text-gray-700 text-center text-sm">A creative visionary who brings concepts to life with artistry and imagination. Elms crafts visual stories that inspire and engage.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <img src="img/Muf.png" alt="Muf" class="img-fluid w-25 h-auto rounded-circle object-cover mb-4 border-4 border-ks-blue shadow" />
-                <div class="font-semibold text-xl text-ks-gold mb-1">Muf</div>
-                <div class="text-gray-500 mb-2">The Strategist</div>
-                <p class="text-gray-700 text-center text-sm">The mastermind behind our approach, Muf aligns design and business goals to ensure every project achieves maximum impact.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white rounded-4 shadow p-4 text-center h-100 border">
-                <img src="img/tom.png" alt="Tom" class="img-fluid w-25 h-auto rounded-circle object-cover mb-4 border-4 border-yellow-400 shadow" />
-                <div class="font-semibold text-xl text-ks-blue mb-1">Tom</div>
-                <div class="text-gray-500 mb-2">The Technologist</div>
-                <p class="text-gray-700 text-center text-sm">Tom leverages cutting-edge technology to turn ideas into robust, scalable solutions. He ensures our work is always future-ready.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Contact Section -->
-      <section id="contact" class="py-5 bg-white rounded-4 shadow-sm">
-        <div class="container-lg text-center mb-4">
-          <h2 class="fw-bold mb-4 text-ks-gold">Contact Us</h2>
-          <p class="fs-5 text-secondary mb-0">Ready to start your next project or have a question? Reach out and let’s build something great together.</p>
-        </div>
-        <div class="container-xl">
-          <form class="bg-white rounded-4 shadow p-4 border d-flex flex-column gap-4" action="#" method="POST">
-            <div class="row g-4">
-              <div class="col-md-6">
-                <label for="name" class="form-label fw-semibold text-start">Name</label>
-                <input type="text" id="name" name="name" required class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label fw-semibold text-start">Email</label>
-                <input type="email" id="email" name="email" required class="form-control" />
-              </div>
-            </div>
-            <div>
-              <label for="message" class="form-label fw-semibold text-start">Message</label>
-              <textarea id="message" name="message" rows="5" required class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn bg-ks-blue text-white fw-semibold py-3 rounded-3 shadow-lg fs-5">Send Message</button>
-          </form>
-        </div>
-      </section>
-      <!-- Footer Section -->
-      <footer class="bg-ks-blue text-white py-5 mt-5 rounded-top-4 shadow-inner">
-        <div class="container-xl d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-between gap-4">
-          <div class="mb-4 mb-md-0 d-flex flex-column align-items-center align-items-md-start">
-            <img src="img/kintsugi-logo.png" alt="Kintsugi Design Logo" class="mb-2" style="width:48px;height:48px;" />
-            <span class="fw-bold fs-5">Kintsugi Design</span>
-            <span class="small text-light">&copy; 2025 Kintsugi Design. All rights reserved.</span>
-          </div>
-          <div class="d-flex flex-column flex-md-row gap-4 text-center text-md-start">
-            <div>
-              <h6 class="fw-semibold mb-2">Quick Links</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a href="#about" class="link-light text-decoration-none">About</a></li>
-                <li><a href="#services" class="link-light text-decoration-none">Services</a></li>
-                <li><a href="#case-studies" class="link-light text-decoration-none">Case Studies</a></li>
-                <li><a href="#testimonials" class="link-light text-decoration-none">Testimonials</a></li>
-                <li><a href="#faq" class="link-light text-decoration-none">FAQ</a></li>
-                <li><a href="#team" class="link-light text-decoration-none">Team</a></li>
-                <li><a href="#contact" class="link-light text-decoration-none">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h6 class="fw-semibold mb-2">Contact</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a href="mailto:hello@kintsugidesign.co" class="link-light text-decoration-none">hello@kintsugidesign.co</a></li>
-                <li><a href="https://www.linkedin.com/company/kintsugi-design" target="_blank" rel="noopener" class="link-light text-decoration-none">LinkedIn</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </main>
-  </body>
+        </section>
+
+        <section id="contact" class="section" style="text-align: center;">
+            <h2 class="section-title">Contact Us</h2>
+            <p style="font-size: 1.3rem; color: #cccccc; margin-bottom: 2rem;">Ready to start your next project or have a question?<br>Reach out and let's build something great together.</p>
+            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Get in Touch</button>
+        </section>
+
+        <footer>
+            <img src="img/logo-white.png" alt="Kintsugi White Logo">
+            <p>&copy; 2025 Kintsugi.my - For human needs, our solutions lead.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Particle System
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Golden Crack Effect
+        const crackPath = document.getElementById('crack-path');
+        let pathData = '';
+
+        document.addEventListener('mousemove', (e) => {
+            const newX = e.clientX;
+            const newY = e.clientY;
+            
+            if (pathData === '') {
+                pathData = `M ${newX} ${newY}`;
+            } else {
+                pathData += ` L ${newX} ${newY}`;
+            }
+            
+            crackPath.setAttribute('d', pathData);
+            
+            setTimeout(() => {
+                pathData = pathData.split(' ').slice(-20).join(' ');
+                crackPath.setAttribute('d', pathData);
+            }, 100);
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
 </html>
