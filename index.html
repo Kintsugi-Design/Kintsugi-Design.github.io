@@ -62,7 +62,7 @@
     }
     </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -71,23 +71,44 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
+            font-family: 'Courier Prime', 'Courier New', monospace;
+            background: #0D3B66;
+            color: #E8F1F5;
             overflow-x: hidden;
+            position: relative;
         }
 
-        #particles-canvas {
+        /* Blueprint Grid Background */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
             z-index: 1;
             pointer-events: none;
+            animation: gridMove 20s linear infinite;
         }
 
-        .crack-svg {
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(20px, 20px);
+            }
+        }
+
+        /* Animated Blueprint Lines */
+        #blueprint-lines {
             position: fixed;
             top: 0;
             left: 0;
@@ -97,11 +118,36 @@
             z-index: 2;
         }
 
+        .measurement-line {
+            position: absolute;
+            background: rgba(232, 241, 245, 0.3);
+            animation: measureFade 3s ease-in-out infinite;
+        }
+
+        @keyframes measureFade {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sketch Overlay Elements */
+        .sketch-circle {
+            position: absolute;
+            border: 2px dashed rgba(232, 241, 245, 0.3);
+            border-radius: 50%;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .content {
             position: relative;
             z-index: 3;
         }
 
+        /* Navigation Blueprint Style */
         nav {
             display: flex;
             justify-content: space-between;
@@ -110,26 +156,55 @@
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(13, 59, 102, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
             transition: all 0.3s ease;
+            border-bottom: 2px solid rgba(232, 241, 245, 0.3);
+            box-shadow: 0 0 20px rgba(232, 241, 245, 0.1);
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(232, 241, 245, 0.4) 0px,
+                rgba(232, 241, 245, 0.4) 10px,
+                transparent 10px,
+                transparent 20px
+            );
         }
 
         nav.scrolled {
             padding: 1rem 5%;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(13, 59, 102, 0.98);
         }
 
         .logo {
-            font-family: 'Italianno', cursive;
-            font-size: 3rem;
-            font-weight: 400;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #E8F1F5;
             letter-spacing: 2px;
+            text-shadow:
+                2px 2px 0px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(232, 241, 245, 0.5);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(232, 241, 245, 0.5);
         }
 
         .nav-links {
@@ -139,30 +214,46 @@
         }
 
         .nav-links a {
-            color: #ffffff;
+            color: #E8F1F5;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
             position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .nav-links a::after {
-            content: '';
+            content: ']';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #d4af37, #f4e4c1);
-            transition: width 0.3s ease;
+            right: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
+        .nav-links a:hover {
+            color: #FAF3DD;
+            text-shadow: 0 0 10px rgba(250, 243, 221, 0.6);
+        }
+
+        .nav-links a:hover::before,
         .nav-links a:hover::after {
-            width: 100%;
+            opacity: 1;
         }
 
+        /* Hero Section with Technical Drawing Style */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -172,45 +263,80 @@
             position: relative;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border: 3px dashed rgba(232, 241, 245, 0.2);
+            border-radius: 50%;
+            animation: rotate 60s linear infinite;
+        }
+
         .hero h1 {
+            font-family: 'Architects Daughter', cursive;
             font-size: 5rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff 0%, #d4af37 50%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #FAF3DD;
             animation: fadeInUp 1s ease;
             line-height: 1.2;
+            text-shadow:
+                3px 3px 0px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(250, 243, 221, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1::before {
+            content: '//';
+            position: absolute;
+            left: -60px;
+            top: 0;
+            color: rgba(232, 241, 245, 0.3);
+            font-size: 3rem;
         }
 
         .hero .subtitle {
-            font-size: 1.5rem;
-            color: #cccccc;
+            font-size: 1.3rem;
+            color: #E8F1F5;
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease 0.2s both;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
         }
 
         .hero .description {
-            font-size: 1.2rem;
-            color: #999;
+            font-size: 1.1rem;
+            color: rgba(232, 241, 245, 0.8);
             margin-bottom: 3rem;
             animation: fadeInUp 1s ease 0.3s both;
+            font-style: italic;
         }
 
+        /* Blueprint Button Style */
         .cta-button {
             padding: 1.2rem 3rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: 2px solid #d4af37;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 3px solid #E8F1F5;
             background: transparent;
-            color: #d4af37;
+            color: #E8F1F5;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
             animation: fadeInUp 1s ease 0.4s both;
-            border-radius: 30px 25px 28px 26px;
+            font-family: 'Courier Prime', monospace;
+            box-shadow:
+                5px 5px 0px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(232, 241, 245, 0.2);
         }
 
         .cta-button::before {
@@ -220,7 +346,13 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(232, 241, 245, 0.1) 0px,
+                rgba(232, 241, 245, 0.1) 10px,
+                transparent 10px,
+                transparent 20px
+            );
             transition: left 0.5s ease;
         }
 
@@ -229,17 +361,33 @@
         }
 
         .cta-button:hover {
-            background: #d4af37;
-            color: #0a0a0a;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            background: #E8F1F5;
+            color: #0D3B66;
+            transform: translate(-5px, -5px);
+            box-shadow:
+                10px 10px 0px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(232, 241, 245, 0.4);
         }
 
+        /* Section Styles with Blueprint Aesthetics */
         .section {
             padding: 8rem 5%;
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s ease;
+            position: relative;
+        }
+
+        .section::before {
+            content: attr(data-section);
+            position: absolute;
+            top: 4rem;
+            right: 5%;
+            font-size: 0.8rem;
+            color: rgba(232, 241, 245, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
         }
 
         .section.visible {
@@ -248,22 +396,44 @@
         }
 
         .section-title {
-            font-size: 3rem;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 3.5rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 1rem;
+            color: #FAF3DD;
+            text-shadow:
+                3px 3px 0px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(250, 243, 221, 0.3);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 2px;
+            background: rgba(232, 241, 245, 0.3);
+        }
+
+        .section-title::before {
+            left: calc(50% - 250px);
+        }
+
+        .section-title::after {
+            right: calc(50% - 250px);
         }
 
         .section-subtitle {
             text-align: center;
             max-width: 800px;
             margin: 0 auto 4rem;
-            font-size: 1.2rem;
-            color: #cccccc;
+            font-size: 1.1rem;
+            color: rgba(232, 241, 245, 0.8);
             line-height: 1.8;
         }
 
@@ -271,23 +441,29 @@
             max-width: 900px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
         }
 
         .about-content p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 2;
-            color: #e0e0e0;
+            color: #E8F1F5;
             margin-bottom: 2rem;
         }
 
         .about-question {
-            font-size: 1.5rem;
-            color: #d4af37;
-            font-weight: 600;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.8rem;
+            color: #FAF3DD;
+            font-weight: 700;
             font-style: italic;
             margin: 3rem 0;
+            padding: 2rem;
+            border: 2px dashed rgba(232, 241, 245, 0.3);
+            background: rgba(13, 59, 102, 0.5);
         }
 
+        /* Blueprint Card Styles */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -296,36 +472,57 @@
         }
 
         .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(13, 59, 102, 0.6);
+            border: 3px solid rgba(232, 241, 245, 0.3);
             padding: 3rem;
-            border-radius: 20px;
             transition: all 0.5s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            box-shadow:
+                8px 8px 0px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(232, 241, 245, 0.05);
         }
 
         .service-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed rgba(232, 241, 245, 0.2);
+            pointer-events: none;
         }
 
-        .service-card:hover::before {
-            opacity: 1;
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(232, 241, 245, 0.05) 0px,
+                rgba(232, 241, 245, 0.05) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::after {
+            left: 100%;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            transform: translate(-8px, -8px);
+            border-color: rgba(232, 241, 245, 0.6);
+            box-shadow:
+                16px 16px 0px rgba(0, 0, 0, 0.4),
+                inset 0 0 30px rgba(232, 241, 245, 0.1),
+                0 0 40px rgba(232, 241, 245, 0.2);
         }
 
         .service-icon {
@@ -333,22 +530,25 @@
             height: 60px;
             margin-bottom: 1.5rem;
             transition: transform 0.5s ease;
+            filter: drop-shadow(0 0 10px rgba(232, 241, 245, 0.3));
         }
 
         .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.15) rotate(-5deg);
         }
 
         .service-card h3 {
-            font-size: 1.8rem;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2rem;
             margin-bottom: 1rem;
-            color: #d4af37;
+            color: #FAF3DD;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
         }
 
         .service-card p {
-            color: #cccccc;
+            color: rgba(232, 241, 245, 0.9);
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .case-studies-grid {
@@ -359,18 +559,34 @@
         }
 
         .case-study-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
+            background: rgba(13, 59, 102, 0.6);
+            border: 3px solid rgba(232, 241, 245, 0.3);
             overflow: hidden;
             transition: all 0.5s ease;
             cursor: pointer;
+            position: relative;
+            box-shadow:
+                8px 8px 0px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(232, 241, 245, 0.05);
+        }
+
+        .case-study-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px dashed rgba(232, 241, 245, 0.2);
+            pointer-events: none;
         }
 
         .case-study-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            transform: translate(-8px, -8px);
+            border-color: rgba(232, 241, 245, 0.6);
+            box-shadow:
+                16px 16px 0px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(232, 241, 245, 0.2);
         }
 
         .case-study-content {
@@ -378,15 +594,17 @@
         }
 
         .case-study-card h3 {
-            font-size: 2rem;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            color: #d4af37;
+            color: #FAF3DD;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
         }
 
         .case-study-card p {
-            color: #cccccc;
+            color: rgba(232, 241, 245, 0.9);
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .team-grid {
@@ -399,40 +617,74 @@
         .team-card {
             text-align: center;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
+            background: rgba(13, 59, 102, 0.6);
+            border: 3px solid rgba(232, 241, 245, 0.3);
             transition: all 0.5s ease;
+            position: relative;
+            box-shadow:
+                8px 8px 0px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(232, 241, 245, 0.05);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed rgba(232, 241, 245, 0.2);
+            pointer-events: none;
         }
 
         .team-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            transform: translate(-8px, -8px);
+            border-color: rgba(232, 241, 245, 0.6);
+            box-shadow:
+                16px 16px 0px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(232, 241, 245, 0.2);
         }
 
         .team-avatar {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
+            border-radius: 0;
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+            background: transparent;
+            border: 3px solid #E8F1F5;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: #0a0a0a;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 4rem;
+            color: #FAF3DD;
             font-weight: 700;
+            position: relative;
+            box-shadow:
+                5px 5px 0px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(232, 241, 245, 0.1);
+        }
+
+        .team-avatar::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px dashed rgba(232, 241, 245, 0.3);
         }
 
         .team-card h3 {
-            font-size: 1.5rem;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
-            color: #d4af37;
+            color: #FAF3DD;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
         }
 
         .team-card p {
-            color: #cccccc;
+            color: rgba(232, 241, 245, 0.9);
             line-height: 1.6;
         }
 
@@ -444,11 +696,13 @@
         }
 
         .testimonial-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
+            background: rgba(13, 59, 102, 0.6);
+            border: 3px solid rgba(232, 241, 245, 0.3);
             padding: 3rem;
             position: relative;
+            box-shadow:
+                8px 8px 0px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(232, 241, 245, 0.05);
         }
 
         .testimonial-card::before {
@@ -457,33 +711,110 @@
             top: -20px;
             left: 30px;
             font-size: 120px;
-            color: rgba(212, 175, 55, 0.2);
+            color: rgba(250, 243, 221, 0.2);
             font-family: Georgia, serif;
             line-height: 1;
         }
 
+        .testimonial-card::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px dashed rgba(232, 241, 245, 0.2);
+            pointer-events: none;
+        }
+
         .testimonial-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.8;
-            color: #e0e0e0;
+            color: #E8F1F5;
             font-style: italic;
         }
 
         footer {
             padding: 4rem 5%;
             text-align: center;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            background: rgba(10, 10, 10, 0.95);
+            border-top: 3px solid rgba(232, 241, 245, 0.3);
+            background: rgba(13, 59, 102, 0.95);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50px;
+            right: 50px;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(232, 241, 245, 0.4) 0px,
+                rgba(232, 241, 245, 0.4) 10px,
+                transparent 10px,
+                transparent 20px
+            );
         }
 
         footer img {
             height: 40px;
             margin-bottom: 1rem;
-            opacity: 0.6;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
         }
 
         footer p {
-            color: #888;
+            color: rgba(232, 241, 245, 0.7);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Annotations */
+        .annotation {
+            position: absolute;
+            font-size: 0.8rem;
+            color: rgba(232, 241, 245, 0.5);
+            font-style: italic;
+        }
+
+        /* Animated Corner Marks */
+        .corner-mark {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(232, 241, 245, 0.3);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .corner-mark.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-mark.top-right {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-mark.bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-mark.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
         }
 
         @keyframes fadeInUp {
@@ -497,16 +828,25 @@
             }
         }
 
+        @keyframes drawLine {
+            from {
+                stroke-dashoffset: 1000;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             .hero .subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             .nav-links {
-                gap: 1.5rem;
-                font-size: 0.9rem;
+                gap: 1rem;
+                font-size: 0.8rem;
             }
             .section-title {
                 font-size: 2rem;
@@ -515,22 +855,28 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Corner Marks -->
+    <div class="corner-mark top-left"></div>
+    <div class="corner-mark top-right"></div>
+    <div class="corner-mark bottom-left"></div>
+    <div class="corner-mark bottom-right"></div>
+
+    <!-- Blueprint Lines Container -->
+    <div id="blueprint-lines"></div>
+
+    <!-- Sketch Circles -->
+    <div class="sketch-circle" style="width: 400px; height: 400px; top: 10%; left: 10%;"></div>
+    <div class="sketch-circle" style="width: 300px; height: 300px; top: 60%; right: 15%;"></div>
+
     <canvas id="particles-canvas"></canvas>
-    
-    <svg class="crack-svg" id="crack-svg">
-        <path id="crack-path" fill="none" stroke="url(#gold-gradient)" stroke-width="2" opacity="0.6"/>
-        <defs>
-            <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#f4e4c1;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
-            </linearGradient>
-        </defs>
-    </svg>
 
     <div class="content">
         <nav id="navbar">
@@ -554,7 +900,7 @@
             <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Let's Work Together</button>
         </section>
 
-        <section id="about" class="section">
+        <section id="about" class="section" data-section="SECTION 01">
             <h2 class="section-title">About Us</h2>
             <div class="about-content">
                 <p>With a global presence and a shared passion, we possess a unique perspective that uncovers inherent beauty where others may not. Driven by our love for aesthetics and engagement, we are always curious to explore how visually stunning experiences enhance a user's interaction with their surroundings.</p>
@@ -562,24 +908,18 @@
             </div>
         </section>
 
-        <section id="services" class="section">
+        <section id="services" class="section" data-section="SECTION 02">
             <h2 class="section-title">Our Services</h2>
             <p class="section-subtitle">From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence. Our team crafts beautiful, intuitive interfaces, builds robust web solutions, and provides expert consulting to help your business thrive online.</p>
             
             <div class="services-grid">
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="url(#gold1)" stroke-width="2"/>
-                        <path d="M16 56H48" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M32 48V56" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="32" cy="28" r="8" stroke="url(#gold1)" stroke-width="2"/>
-                        <path d="M20 20L24 24M44 20L40 24" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#d4af37"/>
-                                <stop offset="100%" style="stop-color:#f4e4c1"/>
-                            </linearGradient>
-                        </defs>
+                        <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="#E8F1F5" stroke-width="2"/>
+                        <path d="M16 56H48" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 48V56" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="32" cy="28" r="8" stroke="#FAF3DD" stroke-width="2"/>
+                        <path d="M20 20L24 24M44 20L40 24" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <h3>UI/UX Design</h3>
                     <p>Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
@@ -587,15 +927,9 @@
 
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="url(#gold2)" stroke-width="2"/>
-                        <path d="M20 24L28 32L20 40" stroke="url(#gold2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 40H44" stroke="url(#gold2)" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#d4af37"/>
-                                <stop offset="100%" style="stop-color:#f4e4c1"/>
-                            </linearGradient>
-                        </defs>
+                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="#E8F1F5" stroke-width="2"/>
+                        <path d="M20 24L28 32L20 40" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 40H44" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <h3>Web Development</h3>
                     <p>Robust, scalable, and modern web solutions tailored to your business needs and goals.</p>
@@ -603,15 +937,9 @@
 
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="24" stroke="url(#gold3)" stroke-width="2"/>
-                        <path d="M32 8V32L44 44" stroke="url(#gold3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="32" cy="32" r="3" fill="url(#gold3)"/>
-                        <defs>
-                            <linearGradient id="gold3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#d4af37"/>
-                                <stop offset="100%" style="stop-color:#f4e4c1"/>
-                            </linearGradient>
-                        </defs>
+                        <circle cx="32" cy="32" r="24" stroke="#E8F1F5" stroke-width="2"/>
+                        <path d="M32 8V32L44 44" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="32" cy="32" r="3" fill="#FAF3DD"/>
                     </svg>
                     <h3>Consulting & Support</h3>
                     <p>Expert advice, digital strategy, and ongoing support to ensure your digital operations run smoothly.</p>
@@ -619,7 +947,7 @@
             </div>
         </section>
 
-        <section id="case-studies" class="section">
+        <section id="case-studies" class="section" data-section="SECTION 03">
             <h2 class="section-title">Case Studies</h2>
             <p class="section-subtitle">Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges, delivering measurable results, and creating exceptional user experiences for our clients.</p>
             
@@ -640,7 +968,7 @@
             </div>
         </section>
 
-        <section id="testimonials" class="section">
+        <section id="testimonials" class="section" data-section="SECTION 04">
             <h2 class="section-title">Testimonials</h2>
             <p class="section-subtitle">Hear what our clients say about working with Kintsugi Design. We take pride in building lasting partnerships and delivering results that exceed expectations.</p>
             
@@ -654,7 +982,7 @@
             </div>
         </section>
 
-        <section id="team" class="section">
+        <section id="team" class="section" data-section="SECTION 05">
             <h2 class="section-title">Meet the Team</h2>
             <p class="section-subtitle">Our diverse team brings together expertise in design, development, and strategy. We're passionate about creating digital experiences that make a difference.</p>
             
@@ -679,7 +1007,7 @@
             </div>
         </section>
 
-        <section id="contact" class="section" style="text-align: center;">
+        <section id="contact" class="section" data-section="SECTION 06" style="text-align: center;">
             <h2 class="section-title">Contact Us</h2>
             <p style="font-size: 1.3rem; color: #cccccc; margin-bottom: 2rem;">Ready to start your next project or have a question?<br>Reach out and let's build something great together.</p>
             <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Get in Touch</button>
@@ -692,23 +1020,24 @@
     </div>
 
     <script>
-        // Particle System
+        // Blueprint Particle System
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = 100;
+        const particleCount = 80;
 
-        class Particle {
+        class BlueprintParticle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                this.shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: plus
             }
 
             update() {
@@ -722,15 +1051,32 @@
             }
 
             draw() {
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillStyle = `rgba(232, 241, 245, ${this.opacity})`;
+                ctx.strokeStyle = `rgba(232, 241, 245, ${this.opacity})`;
+                ctx.lineWidth = 1;
+
+                if (this.shape === 0) {
+                    // Circle
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (this.shape === 1) {
+                    // Square
+                    ctx.fillRect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
+                } else {
+                    // Plus
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y - this.size * 2);
+                    ctx.lineTo(this.x, this.y + this.size * 2);
+                    ctx.moveTo(this.x - this.size * 2, this.y);
+                    ctx.lineTo(this.x + this.size * 2, this.y);
+                    ctx.stroke();
+                }
             }
         }
 
         for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
+            particles.push(new BlueprintParticle());
         }
 
         function animateParticles() {
@@ -744,31 +1090,107 @@
 
         animateParticles();
 
-        // Golden Crack Effect
-        const crackPath = document.getElementById('crack-path');
-        let pathData = '';
+        // Blueprint Measurement Lines - Dynamic creation
+        const blueprintLines = document.getElementById('blueprint-lines');
+
+        function createMeasurementLine() {
+            const line = document.createElement('div');
+            line.className = 'measurement-line';
+
+            const isHorizontal = Math.random() > 0.5;
+            if (isHorizontal) {
+                line.style.width = Math.random() * 200 + 100 + 'px';
+                line.style.height = '1px';
+                line.style.left = Math.random() * 80 + 10 + '%';
+                line.style.top = Math.random() * 100 + '%';
+            } else {
+                line.style.width = '1px';
+                line.style.height = Math.random() * 200 + 100 + 'px';
+                line.style.left = Math.random() * 100 + '%';
+                line.style.top = Math.random() * 80 + 10 + '%';
+            }
+
+            blueprintLines.appendChild(line);
+
+            // Remove after animation
+            setTimeout(() => {
+                line.remove();
+            }, 3000);
+        }
+
+        // Create measurement lines periodically
+        setInterval(createMeasurementLine, 2000);
+
+        // Create initial lines
+        for (let i = 0; i < 5; i++) {
+            createMeasurementLine();
+        }
+
+        // Interactive Blueprint Drawing on Mouse Move
+        let drawingPath = [];
+        let isDrawing = false;
 
         document.addEventListener('mousemove', (e) => {
-            const newX = e.clientX;
-            const newY = e.clientY;
-            
-            if (pathData === '') {
-                pathData = `M ${newX} ${newY}`;
-            } else {
-                pathData += ` L ${newX} ${newY}`;
+            if (Math.random() > 0.98) { // Only draw occasionally for performance
+                const sketch = document.createElement('div');
+                sketch.style.position = 'fixed';
+                sketch.style.left = e.clientX + 'px';
+                sketch.style.top = e.clientY + 'px';
+                sketch.style.width = '2px';
+                sketch.style.height = '2px';
+                sketch.style.background = 'rgba(232, 241, 245, 0.3)';
+                sketch.style.borderRadius = '50%';
+                sketch.style.pointerEvents = 'none';
+                sketch.style.zIndex = '2';
+                document.body.appendChild(sketch);
+
+                setTimeout(() => {
+                    sketch.remove();
+                }, 1000);
             }
-            
-            crackPath.setAttribute('d', pathData);
-            
+        });
+
+        // Click to create annotation marks
+        document.addEventListener('click', (e) => {
+            // Don't create marks on buttons or links
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+
+            const annotation = document.createElement('div');
+            annotation.className = 'annotation';
+            annotation.style.position = 'fixed';
+            annotation.style.left = e.clientX + 10 + 'px';
+            annotation.style.top = e.clientY - 10 + 'px';
+            annotation.style.zIndex = '10';
+            annotation.textContent = `[${Math.floor(Math.random() * 999)}]`;
+            document.body.appendChild(annotation);
+
+            // Create a crosshair at click point
+            const crosshair = document.createElement('div');
+            crosshair.style.position = 'fixed';
+            crosshair.style.left = e.clientX - 5 + 'px';
+            crosshair.style.top = e.clientY - 5 + 'px';
+            crosshair.style.width = '10px';
+            crosshair.style.height = '10px';
+            crosshair.style.border = '1px solid rgba(232, 241, 245, 0.5)';
+            crosshair.style.pointerEvents = 'none';
+            crosshair.style.zIndex = '10';
+            document.body.appendChild(crosshair);
+
             setTimeout(() => {
-                pathData = pathData.split(' ').slice(-20).join(' ');
-                crackPath.setAttribute('d', pathData);
-            }, 100);
+                annotation.style.transition = 'opacity 0.5s';
+                annotation.style.opacity = '0';
+                crosshair.style.transition = 'opacity 0.5s';
+                crosshair.style.opacity = '0';
+                setTimeout(() => {
+                    annotation.remove();
+                    crosshair.remove();
+                }, 500);
+            }, 2000);
         });
 
         // Scroll Animations
         const sections = document.querySelectorAll('.section');
-        
+
         const observerOptions = {
             threshold: 0.2
         };
@@ -813,6 +1235,67 @@
                 }
             });
         });
+
+        // Card hover blueprint effect
+        document.querySelectorAll('.service-card, .case-study-card, .team-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                // Create blueprint sketch lines around card
+                const rect = this.getBoundingClientRect();
+
+                // Create dimension lines
+                for (let i = 0; i < 4; i++) {
+                    const line = document.createElement('div');
+                    line.style.position = 'fixed';
+                    line.style.background = 'rgba(250, 243, 221, 0.5)';
+                    line.style.pointerEvents = 'none';
+                    line.style.zIndex = '50';
+
+                    if (i < 2) {
+                        // Horizontal lines
+                        line.style.width = rect.width + 'px';
+                        line.style.height = '1px';
+                        line.style.left = rect.left + 'px';
+                        line.style.top = (i === 0 ? rect.top : rect.bottom) + 'px';
+                    } else {
+                        // Vertical lines
+                        line.style.width = '1px';
+                        line.style.height = rect.height + 'px';
+                        line.style.left = (i === 2 ? rect.left : rect.right) + 'px';
+                        line.style.top = rect.top + 'px';
+                    }
+
+                    document.body.appendChild(line);
+
+                    setTimeout(() => {
+                        line.style.transition = 'opacity 0.3s';
+                        line.style.opacity = '0';
+                        setTimeout(() => line.remove(), 300);
+                    }, 300);
+                }
+            });
+        });
+
+        // Add random blueprint annotations on load
+        function addStaticAnnotations() {
+            const annotations = [
+                { text: 'REV 2.0', x: 95, y: 5 },
+                { text: 'SCALE 1:1', x: 5, y: 95 },
+                { text: 'KINTSUGI.MY', x: 5, y: 5 }
+            ];
+
+            annotations.forEach(ann => {
+                const el = document.createElement('div');
+                el.className = 'annotation';
+                el.style.position = 'fixed';
+                el.style.left = ann.x + '%';
+                el.style.top = ann.y + '%';
+                el.style.zIndex = '10';
+                el.textContent = ann.text;
+                document.body.appendChild(el);
+            });
+        }
+
+        addStaticAnnotations();
     </script>
 </body>
 </html>
