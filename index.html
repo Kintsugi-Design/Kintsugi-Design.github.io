@@ -62,8 +62,32 @@
     }
     </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Glocalization Color Palette: Earth Meets Sky */
+            --color-global-deep: #1a1464;
+            --color-global-mid: #2d2a8f;
+            --color-local-terra: #d4744f;
+            --color-local-warm: #e89c7a;
+            --color-connection-gold: #f4a261;
+            --color-connection-bright: #ffb866;
+            --color-neutral-dark: #2d3748;
+            --color-neutral-mid: #4a5568;
+            --color-neutral-light: #cbd5e0;
+            --color-bg-cream: #fef6e4;
+            --color-bg-light: #fffcf2;
+            --color-text-primary: #2d3748;
+            --color-text-secondary: #4a5568;
+
+            /* Typography */
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Work Sans', -apple-system, sans-serif;
+
+            /* Spacing */
+            --spacing-unit: 1rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -71,14 +95,15 @@
         }
 
         body {
-            font-family: 'Courier Prime', 'Courier New', monospace;
-            background: #0D3B66;
-            color: #E8F1F5;
+            font-family: var(--font-body);
+            background: var(--color-bg-cream);
+            color: var(--color-text-primary);
             overflow-x: hidden;
             position: relative;
+            line-height: 1.6;
         }
 
-        /* Blueprint Grid Background */
+        /* Topographic Background - Global to Local */
         body::before {
             content: '';
             position: fixed;
@@ -86,29 +111,30 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-            background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(26, 20, 100, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 116, 79, 0.04) 0%, transparent 50%);
             z-index: 1;
             pointer-events: none;
-            animation: gridMove 20s linear infinite;
         }
 
-        @keyframes gridMove {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(20px, 20px);
-            }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(0deg, transparent 0px, transparent 49px, rgba(26, 20, 100, 0.02) 49px, rgba(26, 20, 100, 0.02) 50px),
+                repeating-linear-gradient(90deg, transparent 0px, transparent 49px, rgba(26, 20, 100, 0.02) 49px, rgba(26, 20, 100, 0.02) 50px);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
         }
 
-        /* Animated Blueprint Lines */
-        #blueprint-lines {
+        /* Network Connection Lines - Global to Local */
+        #connection-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -116,28 +142,41 @@
             height: 100%;
             pointer-events: none;
             z-index: 2;
+            opacity: 0.6;
         }
 
-        .measurement-line {
+        /* Floating Map Markers */
+        .map-marker {
             position: absolute;
-            background: rgba(232, 241, 245, 0.3);
-            animation: measureFade 3s ease-in-out infinite;
-        }
-
-        @keyframes measureFade {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Sketch Overlay Elements */
-        .sketch-circle {
-            position: absolute;
-            border: 2px dashed rgba(232, 241, 245, 0.3);
+            width: 12px;
+            height: 12px;
+            background: var(--color-connection-gold);
             border-radius: 50%;
-            animation: rotate 30s linear infinite;
+            box-shadow: 0 0 0 0 var(--color-connection-gold);
+            animation: markerPulse 2s ease-out infinite;
         }
 
-        @keyframes rotate {
+        @keyframes markerPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(244, 162, 97, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(244, 162, 97, 0);
+            }
+        }
+
+        /* Orbiting Elements - Global Reach */
+        .orbit-element {
+            position: absolute;
+            border: 1px solid rgba(26, 20, 100, 0.15);
+            border-radius: 50%;
+            animation: orbitRotate 40s linear infinite;
+        }
+
+        @keyframes orbitRotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
@@ -147,111 +186,109 @@
             z-index: 3;
         }
 
-        /* Navigation Blueprint Style */
+        /* Navigation - Bridging Global & Local */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(13, 59, 102, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(254, 246, 228, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 100;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid rgba(232, 241, 245, 0.3);
-            box-shadow: 0 0 20px rgba(232, 241, 245, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(26, 20, 100, 0.1);
+            box-shadow: 0 4px 30px rgba(26, 20, 100, 0.05);
         }
 
         nav::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 20px;
-            right: 20px;
-            height: 1px;
-            background: repeating-linear-gradient(
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(
                 90deg,
-                rgba(232, 241, 245, 0.4) 0px,
-                rgba(232, 241, 245, 0.4) 10px,
-                transparent 10px,
-                transparent 20px
+                var(--color-global-deep) 0%,
+                var(--color-connection-gold) 50%,
+                var(--color-local-terra) 100%
             );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        nav.scrolled::before {
+            opacity: 1;
         }
 
         nav.scrolled {
             padding: 1rem 5%;
-            background: rgba(13, 59, 102, 0.98);
+            background: rgba(254, 246, 228, 0.98);
+            box-shadow: 0 8px 40px rgba(26, 20, 100, 0.08);
         }
 
         .logo {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2.5rem;
+            font-family: var(--font-display);
+            font-size: 2rem;
             font-weight: 700;
-            color: #E8F1F5;
-            letter-spacing: 2px;
-            text-shadow:
-                2px 2px 0px rgba(0, 0, 0, 0.3),
-                0 0 10px rgba(232, 241, 245, 0.5);
+            color: var(--color-global-deep);
+            letter-spacing: 0.5px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: transform 0.3s ease;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(232, 241, 245, 0.5);
+        .logo:hover {
+            transform: translateY(-2px);
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: #E8F1F5;
+            color: var(--color-text-primary);
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 500;
             font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            padding: 5px 10px;
-        }
-
-        .nav-links a::before {
-            content: '[';
-            position: absolute;
-            left: 0;
-            opacity: 0;
-            transition: all 0.3s ease;
+            padding: 0.5rem 0;
         }
 
         .nav-links a::after {
-            content: ']';
+            content: '';
             position: absolute;
-            right: 0;
-            opacity: 0;
-            transition: all 0.3s ease;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                var(--color-global-deep),
+                var(--color-local-terra)
+            );
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-links a:hover {
-            color: #FAF3DD;
-            text-shadow: 0 0 10px rgba(250, 243, 221, 0.6);
+            color: var(--color-global-deep);
+            transform: translateY(-2px);
         }
 
-        .nav-links a:hover::before,
         .nav-links a:hover::after {
-            opacity: 1;
+            width: 100%;
         }
 
-        /* Hero Section with Technical Drawing Style */
+        /* Hero Section - Global Vision, Local Impact */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -261,6 +298,7 @@
             text-align: center;
             padding: 0 5%;
             position: relative;
+            overflow: hidden;
         }
 
         .hero::before {
@@ -269,125 +307,158 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            border: 3px dashed rgba(232, 241, 245, 0.2);
-            border-radius: 50%;
-            animation: rotate 60s linear infinite;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(
+                circle,
+                rgba(26, 20, 100, 0.05) 0%,
+                transparent 60%
+            );
+            animation: globalPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes globalPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(
+                to top,
+                var(--color-bg-cream) 0%,
+                transparent 100%
+            );
         }
 
         .hero h1 {
-            font-family: 'Architects Daughter', cursive;
+            font-family: var(--font-display);
             font-size: 5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: #FAF3DD;
-            animation: fadeInUp 1s ease;
-            line-height: 1.2;
-            text-shadow:
-                3px 3px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(250, 243, 221, 0.4);
+            margin-bottom: 1.5rem;
+            color: var(--color-global-deep);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.15;
             position: relative;
             z-index: 2;
+            max-width: 1000px;
         }
 
-        .hero h1::before {
-            content: '//';
-            position: absolute;
-            left: -60px;
-            top: 0;
-            color: rgba(232, 241, 245, 0.3);
-            font-size: 3rem;
+        .hero h1 .global {
+            color: var(--color-global-deep);
+        }
+
+        .hero h1 .local {
+            color: var(--color-local-terra);
+            display: inline-block;
+            animation: localEmphasis 3s ease-in-out infinite;
+        }
+
+        @keyframes localEmphasis {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .hero .subtitle {
-            font-size: 1.3rem;
-            color: #E8F1F5;
+            font-size: 1.4rem;
+            color: var(--color-text-secondary);
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease 0.2s both;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+            letter-spacing: 0.5px;
+            font-weight: 400;
         }
 
         .hero .description {
             font-size: 1.1rem;
-            color: rgba(232, 241, 245, 0.8);
+            color: var(--color-text-secondary);
             margin-bottom: 3rem;
-            animation: fadeInUp 1s ease 0.3s both;
-            font-style: italic;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+            max-width: 700px;
+            line-height: 1.8;
         }
 
-        /* Blueprint Button Style */
+        /* CTA Button - Connection Point */
         .cta-button {
-            padding: 1.2rem 3rem;
+            padding: 1.2rem 2.5rem;
             font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 3px solid #E8F1F5;
-            background: transparent;
-            color: #E8F1F5;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: none;
+            background: linear-gradient(
+                135deg,
+                var(--color-global-deep) 0%,
+                var(--color-global-mid) 50%,
+                var(--color-local-terra) 100%
+            );
+            background-size: 200% 200%;
+            color: white;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.4s both;
-            font-family: 'Courier Prime', monospace;
-            box-shadow:
-                5px 5px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(232, 241, 245, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+            font-family: var(--font-body);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(26, 20, 100, 0.2);
         }
 
         .cta-button::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(232, 241, 245, 0.1) 0px,
-                rgba(232, 241, 245, 0.1) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transition: left 0.5s ease;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
         }
 
         .cta-button:hover::before {
-            left: 100%;
+            width: 400px;
+            height: 400px;
         }
 
         .cta-button:hover {
-            background: #E8F1F5;
-            color: #0D3B66;
-            transform: translate(-5px, -5px);
-            box-shadow:
-                10px 10px 0px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(232, 241, 245, 0.4);
+            background-position: 100% 50%;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(26, 20, 100, 0.3);
         }
 
-        /* Section Styles with Blueprint Aesthetics */
+        .cta-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 20px rgba(26, 20, 100, 0.3);
+        }
+
+        /* Section Styles - Layered Approach */
         .section {
             padding: 8rem 5%;
             opacity: 0;
             transform: translateY(50px);
-            transition: all 1s ease;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
         .section::before {
-            content: attr(data-section);
+            content: '';
             position: absolute;
-            top: 4rem;
-            right: 5%;
-            font-size: 0.8rem;
-            color: rgba(232, 241, 245, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--color-global-deep),
+                var(--color-local-terra)
+            );
+            border-radius: 2px;
         }
 
         .section.visible {
@@ -396,45 +467,42 @@
         }
 
         .section-title {
-            font-family: 'Architects Daughter', cursive;
+            font-family: var(--font-display);
             font-size: 3.5rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow:
-                3px 3px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(250, 243, 221, 0.3);
+            color: var(--color-global-deep);
             position: relative;
             display: inline-block;
             width: 100%;
         }
 
-        .section-title::before,
-        .section-title::after {
+        .section-title .accent {
+            color: var(--color-local-terra);
+            position: relative;
+        }
+
+        .section-title .accent::after {
             content: '';
             position: absolute;
-            top: 50%;
-            width: 100px;
-            height: 2px;
-            background: rgba(232, 241, 245, 0.3);
-        }
-
-        .section-title::before {
-            left: calc(50% - 250px);
-        }
-
-        .section-title::after {
-            right: calc(50% - 250px);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--color-connection-gold);
+            opacity: 0.3;
+            z-index: -1;
         }
 
         .section-subtitle {
             text-align: center;
             max-width: 800px;
             margin: 0 auto 4rem;
-            font-size: 1.1rem;
-            color: rgba(232, 241, 245, 0.8);
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
             line-height: 1.8;
+            font-weight: 300;
         }
 
         .about-content {
@@ -445,148 +513,177 @@
         }
 
         .about-content p {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #E8F1F5;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--color-text-primary);
             margin-bottom: 2rem;
+            font-weight: 300;
         }
 
         .about-question {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.8rem;
-            color: #FAF3DD;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-global-deep);
+            font-weight: 600;
             font-style: italic;
             margin: 3rem 0;
-            padding: 2rem;
-            border: 2px dashed rgba(232, 241, 245, 0.3);
-            background: rgba(13, 59, 102, 0.5);
+            padding: 3rem;
+            border-left: 4px solid var(--color-local-terra);
+            background: linear-gradient(
+                135deg,
+                rgba(26, 20, 100, 0.03) 0%,
+                rgba(212, 116, 79, 0.03) 100%
+            );
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 20px rgba(26, 20, 100, 0.05);
         }
 
-        /* Blueprint Card Styles */
+        /* Service Cards - Connection Points */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
+            gap: 2.5rem;
             margin-top: 4rem;
         }
 
         .service-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            padding: 3rem;
-            transition: all 0.5s ease;
+            background: white;
+            border: 1px solid rgba(26, 20, 100, 0.08);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(26, 20, 100, 0.06);
         }
 
         .service-card::before {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--color-global-deep),
+                var(--color-connection-gold),
+                var(--color-local-terra)
+            );
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .service-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(232, 241, 245, 0.05) 0px,
-                rgba(232, 241, 245, 0.05) 10px,
-                transparent 10px,
-                transparent 20px
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(26, 20, 100, 0.02),
+                transparent 70%
             );
-            transition: left 0.5s ease;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
         }
 
         .service-card:hover::after {
-            left: 100%;
+            width: 500px;
+            height: 500px;
         }
 
         .service-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                inset 0 0 30px rgba(232, 241, 245, 0.1),
-                0 0 40px rgba(232, 241, 245, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(26, 20, 100, 0.12);
+            border-color: rgba(26, 20, 100, 0.15);
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             margin-bottom: 1.5rem;
-            transition: transform 0.5s ease;
-            filter: drop-shadow(0 0 10px rgba(232, 241, 245, 0.3));
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
         }
 
         .service-card:hover .service-icon {
-            transform: scale(1.15) rotate(-5deg);
+            transform: scale(1.1) rotate(3deg);
         }
 
         .service-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2rem;
+            font-family: var(--font-display);
+            font-size: 1.75rem;
             margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            color: var(--color-global-deep);
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
         }
 
         .service-card p {
-            color: rgba(232, 241, 245, 0.9);
+            color: var(--color-text-secondary);
             line-height: 1.8;
             font-size: 1rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
         }
 
         .case-studies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
+            gap: 2.5rem;
             margin-top: 4rem;
         }
 
         .case-study-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
+            background: white;
+            border: 1px solid rgba(26, 20, 100, 0.08);
             overflow: hidden;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(26, 20, 100, 0.06);
         }
 
         .case-study-card::before {
             content: '';
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--color-local-terra),
+                var(--color-connection-gold),
+                var(--color-global-deep)
+            );
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-study-card:hover::before {
+            transform: scaleX(1);
         }
 
         .case-study-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(232, 241, 245, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(26, 20, 100, 0.12);
+            border-color: rgba(26, 20, 100, 0.15);
         }
 
         .case-study-content {
@@ -594,233 +691,181 @@
         }
 
         .case-study-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2.2rem;
+            font-family: var(--font-display);
+            font-size: 1.9rem;
             margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            color: var(--color-global-deep);
+            font-weight: 700;
         }
 
         .case-study-card p {
-            color: rgba(232, 241, 245, 0.9);
+            color: var(--color-text-secondary);
             line-height: 1.8;
             font-size: 1rem;
+            font-weight: 300;
         }
 
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
+            gap: 2.5rem;
             margin-top: 4rem;
         }
 
         .team-card {
             text-align: center;
-            padding: 2rem;
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            transition: all 0.5s ease;
+            padding: 2.5rem;
+            background: white;
+            border: 1px solid rgba(26, 20, 100, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(26, 20, 100, 0.06);
         }
 
         .team-card::before {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--color-connection-gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-card:hover::before {
+            width: 100%;
         }
 
         .team-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(232, 241, 245, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(26, 20, 100, 0.12);
+            border-color: rgba(26, 20, 100, 0.15);
         }
 
         .team-avatar {
             width: 120px;
             height: 120px;
-            border-radius: 0;
+            border-radius: 50%;
             margin: 0 auto 1.5rem;
-            background: transparent;
-            border: 3px solid #E8F1F5;
+            background: linear-gradient(
+                135deg,
+                var(--color-global-deep),
+                var(--color-global-mid)
+            );
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Architects Daughter', cursive;
-            font-size: 4rem;
-            color: #FAF3DD;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: white;
+            font-weight: 600;
             position: relative;
-            box-shadow:
-                5px 5px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.1);
+            box-shadow: 0 8px 30px rgba(26, 20, 100, 0.15);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .team-avatar::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            border: 1px dashed rgba(232, 241, 245, 0.3);
+        .team-card:hover .team-avatar {
+            transform: scale(1.05);
         }
 
         .team-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.8rem;
+            font-family: var(--font-display);
+            font-size: 1.6rem;
             margin-bottom: 0.5rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            color: var(--color-global-deep);
+            font-weight: 700;
         }
 
         .team-card p {
-            color: rgba(232, 241, 245, 0.9);
-            line-height: 1.6;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
         }
 
         .testimonials-container {
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            gap: 3rem;
+            gap: 2.5rem;
         }
 
         .testimonial-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
+            background: white;
+            border: 1px solid rgba(26, 20, 100, 0.08);
             padding: 3rem;
             position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(26, 20, 100, 0.06);
+            border-left: 4px solid var(--color-connection-gold);
         }
 
         .testimonial-card::before {
             content: '"';
             position: absolute;
-            top: -20px;
+            top: 20px;
             left: 30px;
             font-size: 120px;
-            color: rgba(250, 243, 221, 0.2);
-            font-family: Georgia, serif;
+            color: rgba(26, 20, 100, 0.05);
+            font-family: var(--font-display);
             line-height: 1;
         }
 
-        .testimonial-card::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
-        }
-
         .testimonial-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #E8F1F5;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--color-text-primary);
             font-style: italic;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
         }
 
         footer {
             padding: 4rem 5%;
             text-align: center;
-            border-top: 3px solid rgba(232, 241, 245, 0.3);
-            background: rgba(13, 59, 102, 0.95);
+            border-top: 1px solid rgba(26, 20, 100, 0.1);
+            background: var(--color-bg-light);
             position: relative;
+            margin-top: 4rem;
         }
 
         footer::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 50px;
-            right: 50px;
-            height: 1px;
-            background: repeating-linear-gradient(
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(
                 90deg,
-                rgba(232, 241, 245, 0.4) 0px,
-                rgba(232, 241, 245, 0.4) 10px,
-                transparent 10px,
-                transparent 20px
+                var(--color-global-deep),
+                var(--color-connection-gold),
+                var(--color-local-terra)
             );
         }
 
         footer img {
             height: 40px;
             margin-bottom: 1rem;
-            filter: brightness(0) invert(1);
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         footer p {
-            color: rgba(232, 241, 245, 0.7);
+            color: var(--color-text-secondary);
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.3px;
+            font-weight: 300;
         }
 
-        /* Annotations */
-        .annotation {
-            position: absolute;
-            font-size: 0.8rem;
-            color: rgba(232, 241, 245, 0.5);
-            font-style: italic;
-        }
-
-        /* Animated Corner Marks */
-        .corner-mark {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(232, 241, 245, 0.3);
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .corner-mark.top-left {
-            top: 20px;
-            left: 20px;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        .corner-mark.top-right {
-            top: 20px;
-            right: 20px;
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .corner-mark.bottom-left {
-            bottom: 20px;
-            left: 20px;
-            border-right: none;
-            border-top: none;
-        }
-
-        .corner-mark.bottom-right {
-            bottom: 20px;
-            right: 20px;
-            border-left: none;
-            border-top: none;
-        }
-
+        /* Keyframe Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -828,55 +873,82 @@
             }
         }
 
-        @keyframes drawLine {
+        @keyframes fadeIn {
             from {
-                stroke-dashoffset: 1000;
+                opacity: 0;
             }
             to {
-                stroke-dashoffset: 0;
+                opacity: 1;
             }
         }
 
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             .hero .subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             .nav-links {
-                gap: 1rem;
-                font-size: 0.8rem;
+                gap: 1.5rem;
+                font-size: 0.85rem;
             }
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             .case-studies-grid,
             .services-grid {
                 grid-template-columns: 1fr;
             }
-            .section-title::before,
-            .section-title::after {
-                display: none;
+            .case-studies-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .section {
+                padding: 5rem 5%;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Corner Marks -->
-    <div class="corner-mark top-left"></div>
-    <div class="corner-mark top-right"></div>
-    <div class="corner-mark bottom-left"></div>
-    <div class="corner-mark bottom-right"></div>
+    <!-- Connection Canvas for Global-Local Network -->
+    <canvas id="connection-canvas"></canvas>
 
-    <!-- Blueprint Lines Container -->
-    <div id="blueprint-lines"></div>
+    <!-- Floating Map Markers -->
+    <div class="map-marker" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+    <div class="map-marker" style="top: 70%; left: 80%; animation-delay: 0.5s;"></div>
+    <div class="map-marker" style="top: 40%; right: 15%; animation-delay: 1s;"></div>
+    <div class="map-marker" style="bottom: 25%; left: 60%; animation-delay: 1.5s;"></div>
 
-    <!-- Sketch Circles -->
-    <div class="sketch-circle" style="width: 400px; height: 400px; top: 10%; left: 10%;"></div>
-    <div class="sketch-circle" style="width: 300px; height: 300px; top: 60%; right: 15%;"></div>
-
-    <canvas id="particles-canvas"></canvas>
+    <!-- Orbiting Elements -->
+    <div class="orbit-element" style="width: 800px; height: 800px; top: 10%; left: 10%;"></div>
+    <div class="orbit-element" style="width: 500px; height: 500px; top: 50%; right: 10%;"></div>
 
     <div class="content">
         <nav id="navbar">
@@ -894,150 +966,159 @@
         </nav>
 
         <section class="hero">
-            <h1>For human needs,<br>our solutions lead.</h1>
-            <p class="subtitle">UI/UX Design & Web Development Consultancy</p>
-            <p class="description">Beautiful, functional, and human-centered digital experiences.</p>
-            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Let's Work Together</button>
+            <h1><span class="global">Global thinking</span> meets <span class="local">local impact</span></h1>
+            <p class="subtitle">Glocalization-first UI/UX Design & Web Development</p>
+            <p class="description">We bridge worldwide insights with community-centered solutions, creating digital experiences that resonate globally while solving problems locally.</p>
+            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Start Your Glocal Journey</button>
         </section>
 
-        <section id="about" class="section" data-section="SECTION 01">
-            <h2 class="section-title">About Us</h2>
+        <section id="about" class="section">
+            <h2 class="section-title">Our <span class="accent">Glocal</span> Approach</h2>
             <div class="about-content">
-                <p>With a global presence and a shared passion, we possess a unique perspective that uncovers inherent beauty where others may not. Driven by our love for aesthetics and engagement, we are always curious to explore how visually stunning experiences enhance a user's interaction with their surroundings.</p>
-                <p class="about-question">We constantly strive to answer a crucial question:<br>How can we improve the user's experience with a product?</p>
+                <p>We operate at the intersection of global standards and local context. Our team combines international best practices with deep cultural understanding, creating solutions that scale worldwide while remaining authentic to each community they serve.</p>
+                <p class="about-question">How do we take universal design principles and adapt them to solve unique, local challenges?</p>
+                <p>This is the question that drives everything we do. From Kuala Lumpur to the Maldives, we've learned that the best digital experiences honor both global excellence and local nuance.</p>
             </div>
         </section>
 
-        <section id="services" class="section" data-section="SECTION 02">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence. Our team crafts beautiful, intuitive interfaces, builds robust web solutions, and provides expert consulting to help your business thrive online.</p>
-            
+        <section id="services" class="section">
+            <h2 class="section-title">What We <span class="accent">Deliver</span></h2>
+            <p class="section-subtitle">Our services blend global excellence with local expertise. We understand that successful digital products must work seamlessly across cultures while addressing specific community needs.</p>
+
             <div class="services-grid">
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M16 56H48" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M32 48V56" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="32" cy="28" r="8" stroke="#FAF3DD" stroke-width="2"/>
-                        <path d="M20 20L24 24M44 20L40 24" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="32" cy="32" r="28" stroke="#1a1464" stroke-width="2"/>
+                        <circle cx="32" cy="32" r="20" stroke="#d4744f" stroke-width="2"/>
+                        <circle cx="32" cy="32" r="12" stroke="#f4a261" stroke-width="2"/>
+                        <line x1="32" y1="4" x2="32" y2="60" stroke="#1a1464" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <line x1="4" y1="32" x2="60" y2="32" stroke="#1a1464" stroke-width="1.5" stroke-dasharray="3 3"/>
                     </svg>
-                    <h3>UI/UX Design</h3>
-                    <p>Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
+                    <h3>Glocal UI/UX Design</h3>
+                    <p>User experiences that honor cultural context while meeting international standards. We design interfaces that feel familiar locally yet function universally.</p>
                 </div>
 
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M20 24L28 32L20 40" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 40H44" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="8" y="12" width="48" height="40" rx="2" stroke="#1a1464" stroke-width="2"/>
+                        <path d="M20 24L28 32L20 40" stroke="#d4744f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M32 40H44" stroke="#f4a261" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="52" cy="20" r="3" fill="#f4a261"/>
+                        <circle cx="12" cy="44" r="3" fill="#d4744f"/>
                     </svg>
-                    <h3>Web Development</h3>
-                    <p>Robust, scalable, and modern web solutions tailored to your business needs and goals.</p>
+                    <h3>Adaptive Web Development</h3>
+                    <p>Scalable solutions built with global frameworks, optimized for local infrastructure and user behavior. Fast, reliable, and culturally aware.</p>
                 </div>
 
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="24" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M32 8V32L44 44" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="32" cy="32" r="3" fill="#FAF3DD"/>
+                        <path d="M32 8 L56 24 L56 48 L32 60 L8 48 L8 24 Z" stroke="#1a1464" stroke-width="2" fill="none"/>
+                        <circle cx="32" cy="32" r="8" fill="#f4a261"/>
+                        <line x1="32" y1="8" x2="32" y2="24" stroke="#d4744f" stroke-width="2"/>
+                        <line x1="32" y1="40" x2="32" y2="60" stroke="#d4744f" stroke-width="2"/>
+                        <line x1="8" y1="24" x2="24" y2="32" stroke="#d4744f" stroke-width="2"/>
+                        <line x1="40" y1="32" x2="56" y2="48" stroke="#d4744f" stroke-width="2"/>
                     </svg>
-                    <h3>Consulting & Support</h3>
-                    <p>Expert advice, digital strategy, and ongoing support to ensure your digital operations run smoothly.</p>
+                    <h3>Strategic Consulting</h3>
+                    <p>Navigate the complexity of global expansion with local authenticity. From market research to digital transformation, we guide your glocalization journey.</p>
                 </div>
             </div>
         </section>
 
-        <section id="case-studies" class="section" data-section="SECTION 03">
-            <h2 class="section-title">Case Studies</h2>
-            <p class="section-subtitle">Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges, delivering measurable results, and creating exceptional user experiences for our clients.</p>
-            
+        <section id="case-studies" class="section">
+            <h2 class="section-title">Glocal <span class="accent">Success Stories</span></h2>
+            <p class="section-subtitle">See how we've helped businesses bridge the global-local divide, creating digital solutions that scale internationally while remaining deeply rooted in their communities.</p>
+
             <div class="case-studies-grid">
                 <div class="case-study-card">
                     <div class="case-study-content">
-                        <h3>Day Food Catalogue</h3>
-                        <p>End-to-end development of dayfood.mv, a comprehensive FMCG and fresh food ordering platform. Built with modern web technologies to provide a seamless experience for Day Food's customers, featuring up-to-date product catalogues with search and filtering, direct to Viber ordering, and a user-friendly interface.</p>
+                        <h3>Day Food Catalogue (Maldives)</h3>
+                        <p>Global e-commerce standards meet Maldivian island commerce. Built dayfood.mv with international UX patterns while adapting to local ordering habits (Viber integration), island logistics, and multilingual needs. A seamless FMCG platform that feels local but performs globally.</p>
                     </div>
                 </div>
 
                 <div class="case-study-card">
                     <div class="case-study-content">
-                        <h3>Majesty Education</h3>
-                        <p>Digitization of student registration and management system for Majesty Education, a leading tertiary education service provider in Malaysia. Transformed manual registration process into a digital platform, as well as implemented a modern, responsive website with comprehensive education information and features.</p>
+                        <h3>Majesty Education (Malaysia)</h3>
+                        <p>Bringing world-class education management to Malaysia. Digitized student registration with global best practices in UX while accommodating Malaysian educational requirements, local payment methods, and cultural expectations. International functionality with local trust.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="testimonials" class="section" data-section="SECTION 04">
-            <h2 class="section-title">Testimonials</h2>
-            <p class="section-subtitle">Hear what our clients say about working with Kintsugi Design. We take pride in building lasting partnerships and delivering results that exceed expectations.</p>
-            
+        <section id="testimonials" class="section">
+            <h2 class="section-title">Client <span class="accent">Voices</span></h2>
+            <p class="section-subtitle">From different markets and cultures, our clients share how glocalization transformed their digital presence.</p>
+
             <div class="testimonials-container">
                 <div class="testimonial-card">
-                    <p class="testimonial-text">Kintsugi Design transformed our product's user experience. Their attention to detail and creativity are unmatched. Our users love the new interface!</p>
+                    <p class="testimonial-text">Kintsugi understood both international e-commerce standards and the unique needs of island logistics in the Maldives. They delivered a platform that our customers trust and love.</p>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-text">The Kintsugi team delivered our project on time and above expectations. Their expertise in both design and development made a huge difference.</p>
+                    <p class="testimonial-text">The perfect balance of global sophistication and local understanding. Our student management system works seamlessly while respecting Malaysian educational culture. Exceptional work.</p>
                 </div>
             </div>
         </section>
 
-        <section id="team" class="section" data-section="SECTION 05">
-            <h2 class="section-title">Meet the Team</h2>
-            <p class="section-subtitle">Our diverse team brings together expertise in design, development, and strategy. We're passionate about creating digital experiences that make a difference.</p>
+        <section id="team" class="section">
+            <h2 class="section-title">The <span class="accent">Glocal</span> Team</h2>
+            <p class="section-subtitle">Our multicultural team spans continents, bringing diverse perspectives united by a shared mission: creating digital experiences that work everywhere, resonate locally.</p>
             
             <div class="team-grid">
                 <div class="team-card">
                     <div class="team-avatar">E</div>
                     <h3>Elms</h3>
-                    <p>A creative visionary who brings concepts to life with artistry and imagination. Elms crafts visual stories that inspire and engage.</p>
+                    <p>Visual storyteller who translates cultural nuances into universal design language. Elms bridges aesthetics across borders while honoring local identity.</p>
                 </div>
 
                 <div class="team-card">
                     <div class="team-avatar">M</div>
                     <h3>Muf</h3>
-                    <p>The mastermind behind our approach, Muf aligns design and business goals to ensure every project achieves maximum impact.</p>
+                    <p>Strategic architect of glocal solutions. Muf orchestrates the balance between global scalability and local relevance, ensuring every project resonates authentically.</p>
                 </div>
 
                 <div class="team-card">
                     <div class="team-avatar">T</div>
                     <h3>Tom</h3>
-                    <p>Tom leverages cutting-edge technology to turn ideas into robust, scalable solutions. He ensures our work is always future-ready.</p>
+                    <p>Technology translator who implements world-class frameworks optimized for local contexts. Tom builds systems that perform globally, adapt locally.</p>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="section" data-section="SECTION 06" style="text-align: center;">
-            <h2 class="section-title">Contact Us</h2>
-            <p style="font-size: 1.3rem; color: #cccccc; margin-bottom: 2rem;">Ready to start your next project or have a question?<br>Reach out and let's build something great together.</p>
-            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Get in Touch</button>
+        <section id="contact" class="section" style="text-align: center;">
+            <h2 class="section-title">Let's Go <span class="accent">Glocal</span></h2>
+            <p style="font-size: 1.2rem; color: var(--color-text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 300;">Ready to create digital experiences that scale worldwide while connecting deeply with your local audience?</p>
+            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Start the Conversation</button>
         </section>
 
         <footer>
-            <img src="img/logo-white.png" alt="Kintsugi White Logo">
-            <p>&copy; 2025 Kintsugi.my - For human needs, our solutions lead.</p>
+            <img src="img/kintsugi-logo.png" alt="Kintsugi Logo">
+            <p>&copy; 2025 Kintsugi.my - Global thinking. Local impact.</p>
         </footer>
     </div>
 
     <script>
-        // Blueprint Particle System
-        const canvas = document.getElementById('particles-canvas');
+        // Network Connection Canvas - Global to Local
+        const canvas = document.getElementById('connection-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const particles = [];
-        const particleCount = 80;
+        const nodes = [];
+        const nodeCount = 40;
+        const connectionDistance = 200;
 
-        class BlueprintParticle {
-            constructor() {
+        // Node types: 'global' (large hubs) and 'local' (smaller nodes)
+        class NetworkNode {
+            constructor(type = 'local') {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.4 + 0.1;
-                this.shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: plus
+                this.type = type;
+                this.size = type === 'global' ? 6 : 3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = type === 'global' ? 0.8 : 0.5;
+                this.color = type === 'global' ? 'rgba(26, 20, 100,' : 'rgba(212, 116, 79,';
             }
 
             update() {
@@ -1051,142 +1132,53 @@
             }
 
             draw() {
-                ctx.fillStyle = `rgba(232, 241, 245, ${this.opacity})`;
-                ctx.strokeStyle = `rgba(232, 241, 245, ${this.opacity})`;
-                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `${this.color} ${this.opacity})`;
+                ctx.fill();
+            }
+        }
 
-                if (this.shape === 0) {
-                    // Circle
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                } else if (this.shape === 1) {
-                    // Square
-                    ctx.fillRect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
-                } else {
-                    // Plus
-                    ctx.beginPath();
-                    ctx.moveTo(this.x, this.y - this.size * 2);
-                    ctx.lineTo(this.x, this.y + this.size * 2);
-                    ctx.moveTo(this.x - this.size * 2, this.y);
-                    ctx.lineTo(this.x + this.size * 2, this.y);
-                    ctx.stroke();
+        // Create network nodes (mix of global and local)
+        for (let i = 0; i < nodeCount; i++) {
+            const type = i < 8 ? 'global' : 'local'; // First 8 are global hubs
+            nodes.push(new NetworkNode(type));
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = (1 - distance / connectionDistance) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(244, 162, 97, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
                 }
             }
         }
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new BlueprintParticle());
-        }
-
-        function animateParticles() {
+        function animateNetwork() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+
+            drawConnections();
+
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
             });
-            requestAnimationFrame(animateParticles);
+
+            requestAnimationFrame(animateNetwork);
         }
 
-        animateParticles();
-
-        // Blueprint Measurement Lines - Dynamic creation
-        const blueprintLines = document.getElementById('blueprint-lines');
-
-        function createMeasurementLine() {
-            const line = document.createElement('div');
-            line.className = 'measurement-line';
-
-            const isHorizontal = Math.random() > 0.5;
-            if (isHorizontal) {
-                line.style.width = Math.random() * 200 + 100 + 'px';
-                line.style.height = '1px';
-                line.style.left = Math.random() * 80 + 10 + '%';
-                line.style.top = Math.random() * 100 + '%';
-            } else {
-                line.style.width = '1px';
-                line.style.height = Math.random() * 200 + 100 + 'px';
-                line.style.left = Math.random() * 100 + '%';
-                line.style.top = Math.random() * 80 + 10 + '%';
-            }
-
-            blueprintLines.appendChild(line);
-
-            // Remove after animation
-            setTimeout(() => {
-                line.remove();
-            }, 3000);
-        }
-
-        // Create measurement lines periodically
-        setInterval(createMeasurementLine, 2000);
-
-        // Create initial lines
-        for (let i = 0; i < 5; i++) {
-            createMeasurementLine();
-        }
-
-        // Interactive Blueprint Drawing on Mouse Move
-        let drawingPath = [];
-        let isDrawing = false;
-
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.98) { // Only draw occasionally for performance
-                const sketch = document.createElement('div');
-                sketch.style.position = 'fixed';
-                sketch.style.left = e.clientX + 'px';
-                sketch.style.top = e.clientY + 'px';
-                sketch.style.width = '2px';
-                sketch.style.height = '2px';
-                sketch.style.background = 'rgba(232, 241, 245, 0.3)';
-                sketch.style.borderRadius = '50%';
-                sketch.style.pointerEvents = 'none';
-                sketch.style.zIndex = '2';
-                document.body.appendChild(sketch);
-
-                setTimeout(() => {
-                    sketch.remove();
-                }, 1000);
-            }
-        });
-
-        // Click to create annotation marks
-        document.addEventListener('click', (e) => {
-            // Don't create marks on buttons or links
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
-
-            const annotation = document.createElement('div');
-            annotation.className = 'annotation';
-            annotation.style.position = 'fixed';
-            annotation.style.left = e.clientX + 10 + 'px';
-            annotation.style.top = e.clientY - 10 + 'px';
-            annotation.style.zIndex = '10';
-            annotation.textContent = `[${Math.floor(Math.random() * 999)}]`;
-            document.body.appendChild(annotation);
-
-            // Create a crosshair at click point
-            const crosshair = document.createElement('div');
-            crosshair.style.position = 'fixed';
-            crosshair.style.left = e.clientX - 5 + 'px';
-            crosshair.style.top = e.clientY - 5 + 'px';
-            crosshair.style.width = '10px';
-            crosshair.style.height = '10px';
-            crosshair.style.border = '1px solid rgba(232, 241, 245, 0.5)';
-            crosshair.style.pointerEvents = 'none';
-            crosshair.style.zIndex = '10';
-            document.body.appendChild(crosshair);
-
-            setTimeout(() => {
-                annotation.style.transition = 'opacity 0.5s';
-                annotation.style.opacity = '0';
-                crosshair.style.transition = 'opacity 0.5s';
-                crosshair.style.opacity = '0';
-                setTimeout(() => {
-                    annotation.remove();
-                    crosshair.remove();
-                }, 500);
-            }, 2000);
-        });
+        animateNetwork();
 
         // Scroll Animations
         const sections = document.querySelectorAll('.section');
@@ -1230,72 +1222,12 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
-
-        // Card hover blueprint effect
-        document.querySelectorAll('.service-card, .case-study-card, .team-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                // Create blueprint sketch lines around card
-                const rect = this.getBoundingClientRect();
-
-                // Create dimension lines
-                for (let i = 0; i < 4; i++) {
-                    const line = document.createElement('div');
-                    line.style.position = 'fixed';
-                    line.style.background = 'rgba(250, 243, 221, 0.5)';
-                    line.style.pointerEvents = 'none';
-                    line.style.zIndex = '50';
-
-                    if (i < 2) {
-                        // Horizontal lines
-                        line.style.width = rect.width + 'px';
-                        line.style.height = '1px';
-                        line.style.left = rect.left + 'px';
-                        line.style.top = (i === 0 ? rect.top : rect.bottom) + 'px';
-                    } else {
-                        // Vertical lines
-                        line.style.width = '1px';
-                        line.style.height = rect.height + 'px';
-                        line.style.left = (i === 2 ? rect.left : rect.right) + 'px';
-                        line.style.top = rect.top + 'px';
-                    }
-
-                    document.body.appendChild(line);
-
-                    setTimeout(() => {
-                        line.style.transition = 'opacity 0.3s';
-                        line.style.opacity = '0';
-                        setTimeout(() => line.remove(), 300);
-                    }, 300);
-                }
-            });
-        });
-
-        // Add random blueprint annotations on load
-        function addStaticAnnotations() {
-            const annotations = [
-                { text: 'REV 2.0', x: 95, y: 5 },
-                { text: 'SCALE 1:1', x: 5, y: 95 },
-                { text: 'KINTSUGI.MY', x: 5, y: 5 }
-            ];
-
-            annotations.forEach(ann => {
-                const el = document.createElement('div');
-                el.className = 'annotation';
-                el.style.position = 'fixed';
-                el.style.left = ann.x + '%';
-                el.style.top = ann.y + '%';
-                el.style.zIndex = '10';
-                el.textContent = ann.text;
-                document.body.appendChild(el);
-            });
-        }
-
-        addStaticAnnotations();
     </script>
 </body>
 </html>
