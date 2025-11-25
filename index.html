@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Primary Meta Tags -->
     <title>Kintsugi - UI/UX Design & Web Development Consultancy Malaysia</title>
     <meta name="title" content="Kintsugi - UI/UX Design & Web Development Consultancy Malaysia">
@@ -12,7 +12,7 @@
     <meta name="author" content="Kintsugi Design">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://kintsugi.my/">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kintsugi.my/">
@@ -21,18 +21,18 @@
     <meta property="og:image" content="https://kintsugi.my/img/kintsugi-logo.png">
     <meta property="og:site_name" content="Kintsugi">
     <meta property="og:locale" content="en_US">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://kintsugi.my/">
     <meta property="twitter:title" content="Kintsugi - UI/UX Design & Web Development Consultancy">
     <meta property="twitter:description" content="Beautiful, functional, and human-centered digital experiences. For human needs, our solutions lead.">
     <meta property="twitter:image" content="https://kintsugi.my/img/kintsugi-logo.png">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/kintsugi-logo.png">
     <link rel="apple-touch-icon" href="img/kintsugi-logo.png">
-    
+
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
@@ -48,21 +48,17 @@
         "@type": "PostalAddress",
         "addressCountry": "MY"
       },
-      "sameAs": [],
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "tech@kintsugi.my",
         "contactType": "Customer Service"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "reviewCount": "2"
       }
     }
     </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -70,757 +66,160 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Courier Prime', 'Courier New', monospace;
-            background: #0D3B66;
-            color: #E8F1F5;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
             overflow-x: hidden;
-            position: relative;
+            line-height: 1.6;
         }
 
-        /* Blueprint Grid Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-            background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
-            z-index: 1;
-            pointer-events: none;
-            animation: gridMove 20s linear infinite;
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
         }
 
-        @keyframes gridMove {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(20px, 20px);
-            }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        /* Animated Blueprint Lines */
-        #blueprint-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .measurement-line {
-            position: absolute;
-            background: rgba(232, 241, 245, 0.3);
-            animation: measureFade 3s ease-in-out infinite;
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
         }
 
-        @keyframes measureFade {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.6; }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a4a4a;
         }
 
-        /* Sketch Overlay Elements */
-        .sketch-circle {
-            position: absolute;
-            border: 2px dashed rgba(232, 241, 245, 0.3);
-            border-radius: 50%;
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .content {
-            position: relative;
-            z-index: 3;
-        }
-
-        /* Navigation Blueprint Style */
+        /* Navigation */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 5%;
             position: fixed;
-            width: 100%;
             top: 0;
-            background: rgba(13, 59, 102, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 1000;
             transition: all 0.3s ease;
-            border-bottom: 2px solid rgba(232, 241, 245, 0.3);
-            box-shadow: 0 0 20px rgba(232, 241, 245, 0.1);
-        }
-
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 20px;
-            right: 20px;
-            height: 1px;
-            background: repeating-linear-gradient(
-                90deg,
-                rgba(232, 241, 245, 0.4) 0px,
-                rgba(232, 241, 245, 0.4) 10px,
-                transparent 10px,
-                transparent 20px
-            );
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         nav.scrolled {
-            padding: 1rem 5%;
-            background: rgba(13, 59, 102, 0.98);
+            padding: 0 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: #E8F1F5;
-            letter-spacing: 2px;
-            text-shadow:
-                2px 2px 0px rgba(0, 0, 0, 0.3),
-                0 0 10px rgba(232, 241, 245, 0.5);
-            position: relative;
+            color: #1a1a1a;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(232, 241, 245, 0.5);
+        .logo img {
+            height: 32px;
+            width: auto;
         }
 
         .nav-links {
-            display: flex;
-            gap: 3rem;
+            display: none;
             list-style: none;
         }
 
         .nav-links a {
-            color: #E8F1F5;
+            color: #1a1a1a;
             text-decoration: none;
-            font-weight: 700;
             font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 10px;
-        }
-
-        .nav-links a::before {
-            content: '[';
-            position: absolute;
-            left: 0;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: ']';
-            position: absolute;
-            right: 0;
-            opacity: 0;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            display: block;
         }
 
         .nav-links a:hover {
-            color: #FAF3DD;
-            text-shadow: 0 0 10px rgba(250, 243, 221, 0.6);
+            color: #5a4a42;
+            border-bottom-color: #5a4a42;
         }
 
-        .nav-links a:hover::before,
-        .nav-links a:hover::after {
-            opacity: 1;
-        }
-
-        /* Hero Section with Technical Drawing Style */
-        .hero {
-            min-height: 100vh;
+        .nav-toggle {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            border: 3px dashed rgba(232, 241, 245, 0.2);
-            border-radius: 50%;
-            animation: rotate 60s linear infinite;
-        }
-
-        .hero h1 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #FAF3DD;
-            animation: fadeInUp 1s ease;
-            line-height: 1.2;
-            text-shadow:
-                3px 3px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(250, 243, 221, 0.4);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1::before {
-            content: '//';
-            position: absolute;
-            left: -60px;
-            top: 0;
-            color: rgba(232, 241, 245, 0.3);
-            font-size: 3rem;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            color: #E8F1F5;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease 0.2s both;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
-        }
-
-        .hero .description {
-            font-size: 1.1rem;
-            color: rgba(232, 241, 245, 0.8);
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease 0.3s both;
-            font-style: italic;
-        }
-
-        /* Blueprint Button Style */
-        .cta-button {
-            padding: 1.2rem 3rem;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 3px solid #E8F1F5;
-            background: transparent;
-            color: #E8F1F5;
+            gap: 6px;
+            background: none;
+            border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.4s both;
-            font-family: 'Courier Prime', monospace;
-            box-shadow:
-                5px 5px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(232, 241, 245, 0.2);
+            padding: 8px;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(232, 241, 245, 0.1) 0px,
-                rgba(232, 241, 245, 0.1) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            background: #E8F1F5;
-            color: #0D3B66;
-            transform: translate(-5px, -5px);
-            box-shadow:
-                10px 10px 0px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(232, 241, 245, 0.4);
-        }
-
-        /* Section Styles with Blueprint Aesthetics */
-        .section {
-            padding: 8rem 5%;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-            position: relative;
-        }
-
-        .section::before {
-            content: attr(data-section);
-            position: absolute;
-            top: 4rem;
-            right: 5%;
-            font-size: 0.8rem;
-            color: rgba(232, 241, 245, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow:
-                3px 3px 0px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(250, 243, 221, 0.3);
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .section-title::before,
-        .section-title::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 100px;
+        .nav-toggle span {
+            width: 24px;
             height: 2px;
-            background: rgba(232, 241, 245, 0.3);
+            background: #1a1a1a;
+            transition: all 0.3s ease;
+            display: block;
         }
 
-        .section-title::before {
-            left: calc(50% - 250px);
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
         }
 
-        .section-title::after {
-            right: calc(50% - 250px);
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
         }
 
-        .section-subtitle {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            font-size: 1.1rem;
-            color: rgba(232, 241, 245, 0.8);
-            line-height: 1.8;
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
         }
 
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #E8F1F5;
-            margin-bottom: 2rem;
-        }
-
-        .about-question {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.8rem;
-            color: #FAF3DD;
-            font-weight: 700;
-            font-style: italic;
-            margin: 3rem 0;
-            padding: 2rem;
-            border: 2px dashed rgba(232, 241, 245, 0.3);
-            background: rgba(13, 59, 102, 0.5);
-        }
-
-        /* Blueprint Card Styles */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .service-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            padding: 3rem;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
-        }
-
-        .service-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(232, 241, 245, 0.05) 0px,
-                rgba(232, 241, 245, 0.05) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transition: left 0.5s ease;
-        }
-
-        .service-card:hover::after {
-            left: 100%;
-        }
-
-        .service-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                inset 0 0 30px rgba(232, 241, 245, 0.1),
-                0 0 40px rgba(232, 241, 245, 0.2);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1.5rem;
-            transition: transform 0.5s ease;
-            filter: drop-shadow(0 0 10px rgba(232, 241, 245, 0.3));
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.15) rotate(-5deg);
-        }
-
-        .service-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-card p {
-            color: rgba(232, 241, 245, 0.9);
-            line-height: 1.8;
-            font-size: 1rem;
-        }
-
-        .case-studies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .case-study-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            overflow: hidden;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
-        }
-
-        .case-study-card::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
-        }
-
-        .case-study-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(232, 241, 245, 0.2);
-        }
-
-        .case-study-content {
-            padding: 2.5rem;
-        }
-
-        .case-study-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
-        }
-
-        .case-study-card p {
-            color: rgba(232, 241, 245, 0.9);
-            line-height: 1.8;
-            font-size: 1rem;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .team-card {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            transition: all 0.5s ease;
-            position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
-        }
-
-        .team-card:hover {
-            transform: translate(-8px, -8px);
-            border-color: rgba(232, 241, 245, 0.6);
-            box-shadow:
-                16px 16px 0px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(232, 241, 245, 0.2);
-        }
-
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 0;
-            margin: 0 auto 1.5rem;
-            background: transparent;
-            border: 3px solid #E8F1F5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Architects Daughter', cursive;
-            font-size: 4rem;
-            color: #FAF3DD;
-            font-weight: 700;
-            position: relative;
-            box-shadow:
-                5px 5px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.1);
-        }
-
-        .team-avatar::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            border: 1px dashed rgba(232, 241, 245, 0.3);
-        }
-
-        .team-card h3 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: #FAF3DD;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
-        }
-
-        .team-card p {
-            color: rgba(232, 241, 245, 0.9);
-            line-height: 1.6;
-        }
-
-        .testimonials-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            gap: 3rem;
-        }
-
-        .testimonial-card {
-            background: rgba(13, 59, 102, 0.6);
-            border: 3px solid rgba(232, 241, 245, 0.3);
-            padding: 3rem;
-            position: relative;
-            box-shadow:
-                8px 8px 0px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(232, 241, 245, 0.05);
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: -20px;
-            left: 30px;
-            font-size: 120px;
-            color: rgba(250, 243, 221, 0.2);
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-
-        .testimonial-card::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px dashed rgba(232, 241, 245, 0.2);
-            pointer-events: none;
-        }
-
-        .testimonial-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #E8F1F5;
-            font-style: italic;
-        }
-
-        footer {
-            padding: 4rem 5%;
-            text-align: center;
-            border-top: 3px solid rgba(232, 241, 245, 0.3);
-            background: rgba(13, 59, 102, 0.95);
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50px;
-            right: 50px;
-            height: 1px;
-            background: repeating-linear-gradient(
-                90deg,
-                rgba(232, 241, 245, 0.4) 0px,
-                rgba(232, 241, 245, 0.4) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-        }
-
-        footer img {
-            height: 40px;
-            margin-bottom: 1rem;
-            filter: brightness(0) invert(1);
-            opacity: 0.8;
-        }
-
-        footer p {
-            color: rgba(232, 241, 245, 0.7);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* Annotations */
-        .annotation {
-            position: absolute;
-            font-size: 0.8rem;
-            color: rgba(232, 241, 245, 0.5);
-            font-style: italic;
-        }
-
-        /* Animated Corner Marks */
-        .corner-mark {
+        .nav-menu {
             position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(232, 241, 245, 0.3);
-            pointer-events: none;
-            z-index: 10;
+            left: 0;
+            top: 70px;
+            right: 0;
+            background: #ffffff;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 1.5rem;
+            display: none;
+            border-bottom: 1px solid #e5e5e5;
+            animation: slideDown 0.3s ease;
         }
 
-        .corner-mark.top-left {
-            top: 20px;
-            left: 20px;
-            border-right: none;
-            border-bottom: none;
+        .nav-menu.active {
+            display: flex;
         }
 
-        .corner-mark.top-right {
-            top: 20px;
-            right: 20px;
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .corner-mark.bottom-left {
-            bottom: 20px;
-            left: 20px;
-            border-right: none;
-            border-top: none;
-        }
-
-        .corner-mark.bottom-right {
-            bottom: 20px;
-            right: 20px;
-            border-left: none;
-            border-top: none;
-        }
-
-        @keyframes fadeInUp {
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -828,62 +227,499 @@
             }
         }
 
-        @keyframes drawLine {
-            from {
-                stroke-dashoffset: 1000;
+        @media (min-width: 768px) {
+            nav {
+                padding: 0 2.5rem;
             }
-            to {
-                stroke-dashoffset: 0;
+
+            .nav-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .nav-menu {
+                position: static;
+                flex-direction: row;
+                padding: 0;
+                border: none;
+                display: flex !important;
+            }
+
+            .nav-links a {
+                padding: 0;
             }
         }
 
-        @media (max-width: 768px) {
+        /* Main content padding for fixed nav */
+        main {
+            padding-top: 70px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3rem 1.5rem 2rem;
+            text-align: center;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            max-width: 600px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: #6a6a6a;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #5a4a42;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .cta-button:hover {
+            background: #4a3a32;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(90, 74, 66, 0.2);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #5a4a42;
+            border: 2px solid #5a4a42;
+        }
+
+        .cta-button.secondary:hover {
+            background: #5a4a42;
+            color: #ffffff;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 4rem 2.5rem;
+            }
+
             .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 3rem 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            section {
+                padding: 5rem 2.5rem;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.05rem;
+            color: #6a6a6a;
+            line-height: 1.8;
+        }
+
+        @media (min-width: 768px) {
+            .section-header h2 {
                 font-size: 2.5rem;
             }
-            .hero .subtitle {
-                font-size: 1rem;
+
+            .section-header p {
+                font-size: 1.1rem;
             }
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.8rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .case-studies-grid,
+        }
+
+        /* About Section */
+        #about {
+            background: #ffffff;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #4a4a4a;
+        }
+
+        .about-question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #fafafa;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        /* Services Section */
+        #services {
+            background: #ffffff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
             .services-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
             }
-            .section-title::before,
-            .section-title::after {
-                display: none;
+        }
+
+        .service-card {
+            background: #fafafa;
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            background: #f0f0f0;
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            padding: 12px;
+            background: #e8e8e8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #6a6a6a;
+        }
+
+        /* Case Studies Section */
+        #case-studies {
+            background: #f5f5f5;
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .case-studies-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
             }
+        }
+
+        .case-study-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e5e5;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .case-study-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-study-card p {
+            font-size: 0.95rem;
+            color: #6a6a6a;
+            line-height: 1.7;
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background: #ffffff;
+        }
+
+        .testimonials-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: #fafafa;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #5a4a42;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        #team {
+            background: #f5f5f5;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        .team-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: #e8e8e8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5a4a42;
+        }
+
+        .team-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card p {
+            font-size: 0.9rem;
+            color: #6a6a6a;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #1a1a1a;
+            color: #ffffff;
+            text-align: center;
+            padding: 4rem 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            #contact {
+                padding: 6rem 2.5rem;
+            }
+        }
+
+        #contact h2 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            #contact h2 {
+                font-size: 3rem;
+            }
+        }
+
+        #contact p {
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        #contact .cta-button {
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        #contact .cta-button:hover {
+            background: #e8e8e8;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f0f0f;
+            color: #8a8a8a;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        footer img {
+            height: 30px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        /* Utility Classes */
+        .max-width-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
 <body>
-    <!-- Corner Marks -->
-    <div class="corner-mark top-left"></div>
-    <div class="corner-mark top-right"></div>
-    <div class="corner-mark bottom-left"></div>
-    <div class="corner-mark bottom-right"></div>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <img src="img/kintsugi-logo.png" alt="Kintsugi Logo">
+            <span>Kintsugi</span>
+        </a>
 
-    <!-- Blueprint Lines Container -->
-    <div id="blueprint-lines"></div>
+        <button class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-    <!-- Sketch Circles -->
-    <div class="sketch-circle" style="width: 400px; height: 400px; top: 10%; left: 10%;"></div>
-    <div class="sketch-circle" style="width: 300px; height: 300px; top: 60%; right: 15%;"></div>
-
-    <canvas id="particles-canvas"></canvas>
-
-    <div class="content">
-        <nav id="navbar">
-            <div class="logo">
-                <img src="img/kintsugi-logo.png" alt="Kintsugi Logo" style="height: 50px; vertical-align: middle; margin-right: 10px;">
-                Kintsugi
-            </div>
+        <div class="nav-menu" id="navMenu">
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
@@ -891,411 +727,214 @@
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
 
+    <main>
+        <!-- Hero Section -->
         <section class="hero">
-            <h1>For human needs,<br>our solutions lead.</h1>
-            <p class="subtitle">UI/UX Design & Web Development Consultancy</p>
-            <p class="description">Beautiful, functional, and human-centered digital experiences.</p>
-            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Let's Work Together</button>
+            <h1>For human needs, our solutions lead.</h1>
+            <p class="hero-subtitle">UI/UX Design & Web Development Consultancy</p>
+            <p class="hero-description">Beautiful, functional, and human-centered digital experiences that transform your business and delight your users.</p>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Start Your Project</button>
         </section>
 
-        <section id="about" class="section" data-section="SECTION 01">
-            <h2 class="section-title">About Us</h2>
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <h2>About Us</h2>
+            </div>
             <div class="about-content">
-                <p>With a global presence and a shared passion, we possess a unique perspective that uncovers inherent beauty where others may not. Driven by our love for aesthetics and engagement, we are always curious to explore how visually stunning experiences enhance a user's interaction with their surroundings.</p>
-                <p class="about-question">We constantly strive to answer a crucial question:<br>How can we improve the user's experience with a product?</p>
+                <p>With a global perspective and a shared passion for excellence, we possess a unique ability to uncover inherent beauty where others may not. Driven by our love for thoughtful design and meaningful engagement, we are always curious to explore how visually stunning experiences enhance a user's interaction with technology.</p>
+                <p class="about-question">How can we improve the user's experience with a product?</p>
+                <p>This question guides everything we do. From concept to deployment, we combine strategic thinking with creative execution to deliver digital solutions that matter.</p>
             </div>
         </section>
 
-        <section id="services" class="section" data-section="SECTION 02">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence. Our team crafts beautiful, intuitive interfaces, builds robust web solutions, and provides expert consulting to help your business thrive online.</p>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M16 56H48" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M32 48V56" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="32" cy="28" r="8" stroke="#FAF3DD" stroke-width="2"/>
-                        <path d="M20 20L24 24M44 20L40 24" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <h3>UI/UX Design</h3>
-                    <p>Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
-                </div>
+        <!-- Services Section -->
+        <section id="services">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>From design thinking to deployment, we offer a full spectrum of services to elevate your digital presence and achieve your business goals.</p>
+            </div>
 
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="8" y="8" width="48" height="48" rx="4" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M20 24L28 32L20 40" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 40H44" stroke="#E8F1F5" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <h3>Web Development</h3>
-                    <p>Robust, scalable, and modern web solutions tailored to your business needs and goals.</p>
-                </div>
+            <div class="max-width-container">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 12C8 9.79086 9.79086 8 12 8H52C54.2091 8 56 9.79086 56 12V44C56 46.2091 54.2091 48 52 48H12C9.79086 48 8 46.2091 8 44V12Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 56H48" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M32 48V56" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="32" cy="28" r="8" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 20L24 24M44 20L40 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                        <p>Crafting intuitive, beautiful user interfaces and experiences that delight and engage your audience.</p>
+                    </div>
 
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="24" stroke="#E8F1F5" stroke-width="2"/>
-                        <path d="M32 8V32L44 44" stroke="#FAF3DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="32" cy="32" r="3" fill="#FAF3DD"/>
-                    </svg>
-                    <h3>Consulting & Support</h3>
-                    <p>Expert advice, digital strategy, and ongoing support to ensure your digital operations run smoothly.</p>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="8" width="48" height="48" rx="4" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 24L28 32L20 40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M32 40H44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Robust, scalable, and modern web solutions tailored to your business needs and technical requirements.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2"/>
+                                <path d="M32 8V32L44 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="32" cy="32" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Consulting & Support</h3>
+                        <p>Expert guidance, digital strategy, and ongoing support to ensure your digital operations run smoothly and efficiently.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="case-studies" class="section" data-section="SECTION 03">
-            <h2 class="section-title">Case Studies</h2>
-            <p class="section-subtitle">Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges, delivering measurable results, and creating exceptional user experiences for our clients.</p>
-            
-            <div class="case-studies-grid">
-                <div class="case-study-card">
-                    <div class="case-study-content">
+        <!-- Case Studies Section -->
+        <section id="case-studies">
+            <div class="section-header">
+                <h2>Featured Work</h2>
+                <p>Explore our portfolio of transformative projects. Each case study highlights our approach to solving complex challenges and delivering measurable results.</p>
+            </div>
+
+            <div class="max-width-container">
+                <div class="case-studies-grid">
+                    <div class="case-study-card">
                         <h3>Day Food Catalogue</h3>
-                        <p>End-to-end development of dayfood.mv, a comprehensive FMCG and fresh food ordering platform. Built with modern web technologies to provide a seamless experience for Day Food's customers, featuring up-to-date product catalogues with search and filtering, direct to Viber ordering, and a user-friendly interface.</p>
+                        <p>End-to-end development of dayfood.mv, a comprehensive FMCG and fresh food ordering platform. Built with modern web technologies to provide a seamless experience for Day Food's customers, featuring up-to-date product catalogues with search and filtering, direct to Viber ordering, and a user-friendly interface that simplifies the ordering process.</p>
                     </div>
-                </div>
 
-                <div class="case-study-card">
-                    <div class="case-study-content">
+                    <div class="case-study-card">
                         <h3>Majesty Education</h3>
-                        <p>Digitization of student registration and management system for Majesty Education, a leading tertiary education service provider in Malaysia. Transformed manual registration process into a digital platform, as well as implemented a modern, responsive website with comprehensive education information and features.</p>
+                        <p>Digitization of student registration and management system for Majesty Education, a leading tertiary education service provider in Malaysia. Transformed manual registration processes into a digital platform, and implemented a modern, responsive website with comprehensive education information, enrollment capabilities, and student management features.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="testimonials" class="section" data-section="SECTION 04">
-            <h2 class="section-title">Testimonials</h2>
-            <p class="section-subtitle">Hear what our clients say about working with Kintsugi Design. We take pride in building lasting partnerships and delivering results that exceed expectations.</p>
-            
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <div class="section-header">
+                <h2>What Our Clients Say</h2>
+                <p>Hear from the teams and organizations we've had the pleasure of working with.</p>
+            </div>
+
             <div class="testimonials-container">
                 <div class="testimonial-card">
-                    <p class="testimonial-text">Kintsugi Design transformed our product's user experience. Their attention to detail and creativity are unmatched. Our users love the new interface!</p>
+                    <p class="testimonial-text">"Kintsugi Design transformed our product's user experience. Their attention to detail and creative approach are truly unmatched. Our users immediately noticed the improvement in the interface, and it has significantly boosted our engagement metrics."</p>
+                    <p class="testimonial-author">— Client, Day Food</p>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-text">The Kintsugi team delivered our project on time and above expectations. Their expertise in both design and development made a huge difference.</p>
+                    <p class="testimonial-text">"The Kintsugi team delivered our project on time and above expectations. Their expertise in both design and development made a significant difference in our digital transformation journey. We highly recommend their services to anyone seeking exceptional digital solutions."</p>
+                    <p class="testimonial-author">— Client, Majesty Education</p>
                 </div>
             </div>
         </section>
 
-        <section id="team" class="section" data-section="SECTION 05">
-            <h2 class="section-title">Meet the Team</h2>
-            <p class="section-subtitle">Our diverse team brings together expertise in design, development, and strategy. We're passionate about creating digital experiences that make a difference.</p>
-            
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-avatar">E</div>
-                    <h3>Elms</h3>
-                    <p>A creative visionary who brings concepts to life with artistry and imagination. Elms crafts visual stories that inspire and engage.</p>
-                </div>
+        <!-- Team Section -->
+        <section id="team">
+            <div class="section-header">
+                <h2>Meet Our Team</h2>
+                <p>Our diverse team brings together expertise in design, development, and strategy. We're passionate about creating digital experiences that make a real difference.</p>
+            </div>
 
-                <div class="team-card">
-                    <div class="team-avatar">M</div>
-                    <h3>Muf</h3>
-                    <p>The mastermind behind our approach, Muf aligns design and business goals to ensure every project achieves maximum impact.</p>
-                </div>
+            <div class="max-width-container">
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">E</div>
+                        <h3>Elms</h3>
+                        <p>A creative visionary who brings concepts to life with artistry and imagination. Elms crafts visual stories that inspire and engage, transforming complex ideas into beautiful, intuitive designs.</p>
+                    </div>
 
-                <div class="team-card">
-                    <div class="team-avatar">T</div>
-                    <h3>Tom</h3>
-                    <p>Tom leverages cutting-edge technology to turn ideas into robust, scalable solutions. He ensures our work is always future-ready.</p>
+                    <div class="team-card">
+                        <div class="team-avatar">M</div>
+                        <h3>Muf</h3>
+                        <p>The strategic thinker behind our approach, Muf aligns design and business goals to ensure every project achieves maximum impact. A natural leader who mentors the team and drives innovation.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">T</div>
+                        <h3>Tom</h3>
+                        <p>Tom leverages cutting-edge technology to turn ideas into robust, scalable solutions. He ensures our work is always future-ready, combining technical excellence with creative problem-solving.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="section" data-section="SECTION 06" style="text-align: center;">
-            <h2 class="section-title">Contact Us</h2>
-            <p style="font-size: 1.3rem; color: #cccccc; margin-bottom: 2rem;">Ready to start your next project or have a question?<br>Reach out and let's build something great together.</p>
-            <button class="cta-button" onclick="window.location.href='mailto:tech@kintsugi.my'">Get in Touch</button>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Let's Work Together</h2>
+            <p>Ready to transform your digital presence or have a question? We'd love to hear from you. Get in touch with our team and let's create something amazing together.</p>
+            <a href="mailto:tech@kintsugi.my" class="cta-button">Get in Touch</a>
         </section>
 
+        <!-- Footer -->
         <footer>
-            <img src="img/logo-white.png" alt="Kintsugi White Logo">
-            <p>&copy; 2025 Kintsugi.my - For human needs, our solutions lead.</p>
+            <img src="img/logo-white.png" alt="Kintsugi">
+            <p>&copy; 2025 Kintsugi Design - For human needs, our solutions lead.</p>
         </footer>
-    </div>
+    </main>
 
     <script>
-        // Blueprint Particle System
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-links a');
 
-        const particles = [];
-        const particleCount = 80;
-
-        class BlueprintParticle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.4 + 0.1;
-                this.shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: plus
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(232, 241, 245, ${this.opacity})`;
-                ctx.strokeStyle = `rgba(232, 241, 245, ${this.opacity})`;
-                ctx.lineWidth = 1;
-
-                if (this.shape === 0) {
-                    // Circle
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                } else if (this.shape === 1) {
-                    // Square
-                    ctx.fillRect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
-                } else {
-                    // Plus
-                    ctx.beginPath();
-                    ctx.moveTo(this.x, this.y - this.size * 2);
-                    ctx.lineTo(this.x, this.y + this.size * 2);
-                    ctx.moveTo(this.x - this.size * 2, this.y);
-                    ctx.lineTo(this.x + this.size * 2, this.y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new BlueprintParticle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-
-        animateParticles();
-
-        // Blueprint Measurement Lines - Dynamic creation
-        const blueprintLines = document.getElementById('blueprint-lines');
-
-        function createMeasurementLine() {
-            const line = document.createElement('div');
-            line.className = 'measurement-line';
-
-            const isHorizontal = Math.random() > 0.5;
-            if (isHorizontal) {
-                line.style.width = Math.random() * 200 + 100 + 'px';
-                line.style.height = '1px';
-                line.style.left = Math.random() * 80 + 10 + '%';
-                line.style.top = Math.random() * 100 + '%';
-            } else {
-                line.style.width = '1px';
-                line.style.height = Math.random() * 200 + 100 + 'px';
-                line.style.left = Math.random() * 100 + '%';
-                line.style.top = Math.random() * 80 + 10 + '%';
-            }
-
-            blueprintLines.appendChild(line);
-
-            // Remove after animation
-            setTimeout(() => {
-                line.remove();
-            }, 3000);
-        }
-
-        // Create measurement lines periodically
-        setInterval(createMeasurementLine, 2000);
-
-        // Create initial lines
-        for (let i = 0; i < 5; i++) {
-            createMeasurementLine();
-        }
-
-        // Interactive Blueprint Drawing on Mouse Move
-        let drawingPath = [];
-        let isDrawing = false;
-
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.98) { // Only draw occasionally for performance
-                const sketch = document.createElement('div');
-                sketch.style.position = 'fixed';
-                sketch.style.left = e.clientX + 'px';
-                sketch.style.top = e.clientY + 'px';
-                sketch.style.width = '2px';
-                sketch.style.height = '2px';
-                sketch.style.background = 'rgba(232, 241, 245, 0.3)';
-                sketch.style.borderRadius = '50%';
-                sketch.style.pointerEvents = 'none';
-                sketch.style.zIndex = '2';
-                document.body.appendChild(sketch);
-
-                setTimeout(() => {
-                    sketch.remove();
-                }, 1000);
-            }
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
 
-        // Click to create annotation marks
-        document.addEventListener('click', (e) => {
-            // Don't create marks on buttons or links
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
-
-            const annotation = document.createElement('div');
-            annotation.className = 'annotation';
-            annotation.style.position = 'fixed';
-            annotation.style.left = e.clientX + 10 + 'px';
-            annotation.style.top = e.clientY - 10 + 'px';
-            annotation.style.zIndex = '10';
-            annotation.textContent = `[${Math.floor(Math.random() * 999)}]`;
-            document.body.appendChild(annotation);
-
-            // Create a crosshair at click point
-            const crosshair = document.createElement('div');
-            crosshair.style.position = 'fixed';
-            crosshair.style.left = e.clientX - 5 + 'px';
-            crosshair.style.top = e.clientY - 5 + 'px';
-            crosshair.style.width = '10px';
-            crosshair.style.height = '10px';
-            crosshair.style.border = '1px solid rgba(232, 241, 245, 0.5)';
-            crosshair.style.pointerEvents = 'none';
-            crosshair.style.zIndex = '10';
-            document.body.appendChild(crosshair);
-
-            setTimeout(() => {
-                annotation.style.transition = 'opacity 0.5s';
-                annotation.style.opacity = '0';
-                crosshair.style.transition = 'opacity 0.5s';
-                crosshair.style.opacity = '0';
-                setTimeout(() => {
-                    annotation.remove();
-                    crosshair.remove();
-                }, 500);
-            }, 2000);
-        });
-
-        // Scroll Animations
-        const sections = document.querySelectorAll('.section');
-
-        const observerOptions = {
-            threshold: 0.2
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
             });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
         });
 
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
         });
 
-        // Resize handler
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Smooth scroll
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
+                    const offset = 70;
+                    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({
+                        top: elementPosition - offset,
                         behavior: 'smooth'
                     });
                 }
             });
         });
 
-        // Card hover blueprint effect
-        document.querySelectorAll('.service-card, .case-study-card, .team-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                // Create blueprint sketch lines around card
-                const rect = this.getBoundingClientRect();
-
-                // Create dimension lines
-                for (let i = 0; i < 4; i++) {
-                    const line = document.createElement('div');
-                    line.style.position = 'fixed';
-                    line.style.background = 'rgba(250, 243, 221, 0.5)';
-                    line.style.pointerEvents = 'none';
-                    line.style.zIndex = '50';
-
-                    if (i < 2) {
-                        // Horizontal lines
-                        line.style.width = rect.width + 'px';
-                        line.style.height = '1px';
-                        line.style.left = rect.left + 'px';
-                        line.style.top = (i === 0 ? rect.top : rect.bottom) + 'px';
-                    } else {
-                        // Vertical lines
-                        line.style.width = '1px';
-                        line.style.height = rect.height + 'px';
-                        line.style.left = (i === 2 ? rect.left : rect.right) + 'px';
-                        line.style.top = rect.top + 'px';
-                    }
-
-                    document.body.appendChild(line);
-
-                    setTimeout(() => {
-                        line.style.transition = 'opacity 0.3s';
-                        line.style.opacity = '0';
-                        setTimeout(() => line.remove(), 300);
-                    }, 300);
-                }
-            });
+        // Update service icon colors
+        document.querySelectorAll('.service-icon svg').forEach(svg => {
+            svg.style.color = '#5a4a42';
         });
-
-        // Add random blueprint annotations on load
-        function addStaticAnnotations() {
-            const annotations = [
-                { text: 'REV 2.0', x: 95, y: 5 },
-                { text: 'SCALE 1:1', x: 5, y: 95 },
-                { text: 'KINTSUGI.MY', x: 5, y: 5 }
-            ];
-
-            annotations.forEach(ann => {
-                const el = document.createElement('div');
-                el.className = 'annotation';
-                el.style.position = 'fixed';
-                el.style.left = ann.x + '%';
-                el.style.top = ann.y + '%';
-                el.style.zIndex = '10';
-                el.textContent = ann.text;
-                document.body.appendChild(el);
-            });
-        }
-
-        addStaticAnnotations();
     </script>
 </body>
 </html>
